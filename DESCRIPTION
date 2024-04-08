@@ -4,8 +4,7 @@ Title: An R wrapper of lzstring C++ library
 Version: 0.1.0
 Author: Sam Parmar
 Maintainer: Sam Parmar <yourself@somewhere.net>
-Description: An R wrapper of LZ-based compression algorithm 
-  implemented in C++
+Description: An R wrapper of LZ-based compression algorithm implemented in C++
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
