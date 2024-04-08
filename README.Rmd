@@ -1,5 +1,7 @@
 ---
 output: github_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -19,7 +21,7 @@ knitr::opts_chunk$set(
 <!-- badges: end -->
 
 
-The goal of lzstringr is to provide an R wrapper for the [lzstring C++ library](https://github.com/andykras/lz-string-cpp). lzstring is a JavaScript library that provides fast and efficient string compression and decompression. Credit goes to Winston Chang for spotting this missing R package and doing a 90% of the work over at the Shinylive repo—check out his awesome contributions which this repo is based on [here](https://github.com/posit-dev/r-shinylive/issues/70) and [here](https://github.com/posit-dev/r-shinylive/pull/71). Also, shoutout to Andy Kras for his original implementation in C++ of lzstring, which you can find right [here](https://github.com/andykras/lz-string-cpp), and [pieroxy](https://github.com/pieroxy), the original brain behind lzstring in JavaScript—peek at his work over [here](https://github.com/pieroxy/lz-string). 
+The goal of lzstringr is to provide an R wrapper for the [lzstring C++ library](https://github.com/andykras/lz-string-cpp). lzstring is a JavaScript library that provides fast and efficient string compression and decompression. Credit goes to Winston Chang for spotting this missing R package and doing the majority of the work over at the Shinylive repo—check out his awesome contributions which this repo is based on [here](https://github.com/posit-dev/r-shinylive/issues/70) and [here](https://github.com/posit-dev/r-shinylive/pull/71). Also, shoutout to Andy Kras for his original implementation in C++ of lzstring, which you can find right [here](https://github.com/andykras/lz-string-cpp), and [pieroxy](https://github.com/pieroxy), the original brain behind lzstring in JavaScript—peek at his work over [here](https://github.com/pieroxy/lz-string). 
 
 ## Installation
 
@@ -39,10 +41,10 @@ library(lzstringr)
 
 data = "The quick brown fox jumps over the lazy dog!";
 
-compressed = lzstringr:::compressToBase64(data)
+compressed = lzstringr::compressToBase64(data)
 compressed
 
-decompressed = lzstringr:::decompressFromBase64(compressed)
+decompressed = lzstringr::decompressFromBase64(compressed)
 decompressed
 ```
 
