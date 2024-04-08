@@ -6,40 +6,40 @@
 #include <R_ext/Visibility.h>
 
 // code.cpp
-std::string compressToEncodedURIComponent(std::string uncompressed8);
-extern "C" SEXP _lzstringr_compressToEncodedURIComponent(SEXP uncompressed8) {
+std::string compressToEncodedURIComponent_(std::string uncompressed8);
+extern "C" SEXP _lzstringr_compressToEncodedURIComponent_(SEXP uncompressed8) {
   BEGIN_CPP11
-    return cpp11::as_sexp(compressToEncodedURIComponent(cpp11::as_cpp<cpp11::decay_t<std::string>>(uncompressed8)));
+    return cpp11::as_sexp(compressToEncodedURIComponent_(cpp11::as_cpp<cpp11::decay_t<std::string>>(uncompressed8)));
   END_CPP11
 }
 // code.cpp
-std::string decompressFromEncodedURIComponent(std::string compressed8);
-extern "C" SEXP _lzstringr_decompressFromEncodedURIComponent(SEXP compressed8) {
+std::string decompressFromEncodedURIComponent_(std::string compressed8);
+extern "C" SEXP _lzstringr_decompressFromEncodedURIComponent_(SEXP compressed8) {
   BEGIN_CPP11
-    return cpp11::as_sexp(decompressFromEncodedURIComponent(cpp11::as_cpp<cpp11::decay_t<std::string>>(compressed8)));
+    return cpp11::as_sexp(decompressFromEncodedURIComponent_(cpp11::as_cpp<cpp11::decay_t<std::string>>(compressed8)));
   END_CPP11
 }
 // code.cpp
-std::string compressToBase64(std::string uncompressed8);
-extern "C" SEXP _lzstringr_compressToBase64(SEXP uncompressed8) {
+std::string compressToBase64_(std::string uncompressed8);
+extern "C" SEXP _lzstringr_compressToBase64_(SEXP uncompressed8) {
   BEGIN_CPP11
-    return cpp11::as_sexp(compressToBase64(cpp11::as_cpp<cpp11::decay_t<std::string>>(uncompressed8)));
+    return cpp11::as_sexp(compressToBase64_(cpp11::as_cpp<cpp11::decay_t<std::string>>(uncompressed8)));
   END_CPP11
 }
 // code.cpp
-std::string decompressFromBase64(std::string compressed8);
-extern "C" SEXP _lzstringr_decompressFromBase64(SEXP compressed8) {
+std::string decompressFromBase64_(std::string compressed8);
+extern "C" SEXP _lzstringr_decompressFromBase64_(SEXP compressed8) {
   BEGIN_CPP11
-    return cpp11::as_sexp(decompressFromBase64(cpp11::as_cpp<cpp11::decay_t<std::string>>(compressed8)));
+    return cpp11::as_sexp(decompressFromBase64_(cpp11::as_cpp<cpp11::decay_t<std::string>>(compressed8)));
   END_CPP11
 }
 
 extern "C" {
 static const R_CallMethodDef CallEntries[] = {
-    {"_lzstringr_compressToBase64",                  (DL_FUNC) &_lzstringr_compressToBase64,                  1},
-    {"_lzstringr_compressToEncodedURIComponent",     (DL_FUNC) &_lzstringr_compressToEncodedURIComponent,     1},
-    {"_lzstringr_decompressFromBase64",              (DL_FUNC) &_lzstringr_decompressFromBase64,              1},
-    {"_lzstringr_decompressFromEncodedURIComponent", (DL_FUNC) &_lzstringr_decompressFromEncodedURIComponent, 1},
+    {"_lzstringr_compressToBase64_",                  (DL_FUNC) &_lzstringr_compressToBase64_,                  1},
+    {"_lzstringr_compressToEncodedURIComponent_",     (DL_FUNC) &_lzstringr_compressToEncodedURIComponent_,     1},
+    {"_lzstringr_decompressFromBase64_",              (DL_FUNC) &_lzstringr_decompressFromBase64_,              1},
+    {"_lzstringr_decompressFromEncodedURIComponent_", (DL_FUNC) &_lzstringr_decompressFromEncodedURIComponent_, 1},
     {NULL, NULL, 0}
 };
 }

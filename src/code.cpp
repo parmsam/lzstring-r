@@ -4,7 +4,7 @@ using namespace cpp11;
 #include "lz-string.hpp"
 
 [[cpp11::register]]
-std::string compressToEncodedURIComponent(std::string uncompressed8) {
+std::string compressToEncodedURIComponent_(std::string uncompressed8) {
   std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> converter_8_to_16;
   std::u16string uncompressed16 = converter_8_to_16.from_bytes(uncompressed8);
 
@@ -18,7 +18,7 @@ std::string compressToEncodedURIComponent(std::string uncompressed8) {
 
 
 [[cpp11::register]]
-std::string decompressFromEncodedURIComponent(std::string compressed8) {
+std::string decompressFromEncodedURIComponent_(std::string compressed8) {
   std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> converter_8_to_16;
   std::u16string compressed16 = converter_8_to_16.from_bytes(compressed8);
 
@@ -31,7 +31,7 @@ std::string decompressFromEncodedURIComponent(std::string compressed8) {
 }
 
 [[cpp11::register]]
-std::string compressToBase64(std::string uncompressed8) {
+std::string compressToBase64_(std::string uncompressed8) {
   std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> converter_8_to_16;
   std::u16string uncompressed16 = converter_8_to_16.from_bytes(uncompressed8);
 
@@ -44,7 +44,7 @@ std::string compressToBase64(std::string uncompressed8) {
 }
 
 [[cpp11::register]]
-std::string decompressFromBase64(std::string compressed8) {
+std::string decompressFromBase64_(std::string compressed8) {
   std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> converter_8_to_16;
   std::u16string compressed16 = converter_8_to_16.from_bytes(compressed8);
 
