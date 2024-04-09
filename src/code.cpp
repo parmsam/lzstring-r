@@ -2,6 +2,7 @@
 using namespace cpp11;
 #include <codecvt>
 #include "lz-string.hpp"
+#include <string>
 
 [[cpp11::register]]
 std::string compressToEncodedURIComponent_(std::string uncompressed8) {
