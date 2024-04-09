@@ -87,9 +87,22 @@ test_that("Decompression from Base64 matches JavaScript implementation output", 
 
 ## Test cases to ensure the string is UTF-8 encoded ----
 
-test_that("Non UTF-8 characters return error", {
-  x <- c("Jetz", "no", "chli", "z\xc3\xbcrit\xc3\xbc\xc3\xbctsch:", "(noch", "ein", "bi\xc3\x9fchen", "Z\xc3\xbc", "deutsch)", "\xfa\xb4\xbf\xbf\x9f")
+test_that("Ensure strings are UTF-8 encoded", {
+  x <- "fa\xE7ile"
+  Encoding(x) <- "latin1"
 
-  expect_error(compressToBase64(x))
-  expect_error(compressToEncodedURIComponent(x))
+  expect_no_error(compressToBase64(x))
+  expect_no_error(compressToEncodedURIComponent(x))
+
+  y <- decompressFromBase64(compressToBase64(x))
+  expect_equal(Encoding(y), "UTF-8")
+
+  x <- "한 글"
+  Encoding(x) <- "unknown"
+
+  expect_no_error(compressToBase64(x))
+  expect_no_error(compressToEncodedURIComponent(x))
+
+  y <- decompressFromBase64(compressToBase64(x))
+  expect_equal(Encoding(y), "UTF-8")
 })
