@@ -6,31 +6,31 @@
 #include <R_ext/Visibility.h>
 
 // code.cpp
-std::string compressToEncodedURIComponent_(std::string uncompressed8);
-extern "C" SEXP _lzstringr_compressToEncodedURIComponent_(SEXP uncompressed8) {
+std::u16string compressToEncodedURIComponent_(std::vector<unsigned char> bytes);
+extern "C" SEXP _lzstringr_compressToEncodedURIComponent_(SEXP bytes) {
   BEGIN_CPP11
-    return cpp11::as_sexp(compressToEncodedURIComponent_(cpp11::as_cpp<cpp11::decay_t<std::string>>(uncompressed8)));
+    return cpp11::as_sexp(compressToEncodedURIComponent_(cpp11::as_cpp<cpp11::decay_t<std::vector<unsigned char>>>(bytes)));
   END_CPP11
 }
 // code.cpp
-std::string decompressFromEncodedURIComponent_(std::string compressed8);
-extern "C" SEXP _lzstringr_decompressFromEncodedURIComponent_(SEXP compressed8) {
+std::u16string decompressFromEncodedURIComponent_(std::vector<unsigned char> bytes);
+extern "C" SEXP _lzstringr_decompressFromEncodedURIComponent_(SEXP bytes) {
   BEGIN_CPP11
-    return cpp11::as_sexp(decompressFromEncodedURIComponent_(cpp11::as_cpp<cpp11::decay_t<std::string>>(compressed8)));
+    return cpp11::as_sexp(decompressFromEncodedURIComponent_(cpp11::as_cpp<cpp11::decay_t<std::vector<unsigned char>>>(bytes)));
   END_CPP11
 }
 // code.cpp
-std::string compressToBase64_(std::string uncompressed8);
-extern "C" SEXP _lzstringr_compressToBase64_(SEXP uncompressed8) {
+std::u16string compressToBase64_(std::vector<unsigned char> bytes);
+extern "C" SEXP _lzstringr_compressToBase64_(SEXP bytes) {
   BEGIN_CPP11
-    return cpp11::as_sexp(compressToBase64_(cpp11::as_cpp<cpp11::decay_t<std::string>>(uncompressed8)));
+    return cpp11::as_sexp(compressToBase64_(cpp11::as_cpp<cpp11::decay_t<std::vector<unsigned char>>>(bytes)));
   END_CPP11
 }
 // code.cpp
-std::string decompressFromBase64_(std::string compressed8);
-extern "C" SEXP _lzstringr_decompressFromBase64_(SEXP compressed8) {
+std::u16string decompressFromBase64_(std::vector<unsigned char> bytes);
+extern "C" SEXP _lzstringr_decompressFromBase64_(SEXP bytes) {
   BEGIN_CPP11
-    return cpp11::as_sexp(decompressFromBase64_(cpp11::as_cpp<cpp11::decay_t<std::string>>(compressed8)));
+    return cpp11::as_sexp(decompressFromBase64_(cpp11::as_cpp<cpp11::decay_t<std::vector<unsigned char>>>(bytes)));
   END_CPP11
 }
 
