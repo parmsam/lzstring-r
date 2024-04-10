@@ -1,7 +1,7 @@
 #include <cpp11.hpp>
 using namespace cpp11;
 #include <codecvt>
-#include "lz-string.hpp"
+#include "lz-string.h"
 #include <string>
 #include <vector>
 #include <iostream>
