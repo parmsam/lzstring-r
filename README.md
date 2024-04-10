@@ -15,8 +15,8 @@ JavaScript library that provides fast and efficient string compression
 and decompression using a [LZ-based
 algorithm](https://en.wikipedia.org/wiki/Lempel–Ziv–Welch). Credit goes
 to [Winston Chang](https://github.com/wch) for spotting this missing R
-package and doing the majority of the work over at the R Shinylive
-repo—check out his awesome contributions which this repo is based on
+package and guiding me over at the R Shinylive repo—check out his
+awesome contributions which this repo is based on
 [here](https://github.com/posit-dev/r-shinylive/issues/70) and
 [here](https://github.com/posit-dev/r-shinylive/pull/71). Also, shoutout
 to Andy Kras for his implementation in C++ of lzstring, which you can
