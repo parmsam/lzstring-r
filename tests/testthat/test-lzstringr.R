@@ -88,6 +88,7 @@ test_that("Decompression from Base64 matches JavaScript implementation output", 
 ## Test cases to ensure the string is UTF-8 encoded ----
 
 test_that("Ensure strings are UTF-8 encoded", {
+
   x <- "fa\xE7ile"
   Encoding(x) <- "latin1"
 
@@ -106,3 +107,34 @@ test_that("Ensure strings are UTF-8 encoded", {
   y <- decompressFromBase64(compressToBase64(x))
   expect_equal(Encoding(y), "UTF-8")
 })
+
+## Compress and decompress for comparison ----
+compare_compress_decompress <- function(x) {
+  compressed <- compressToBase64(x)
+  decompressed <- decompressFromBase64(compressed)
+  expect_equal(decompressed, x)
+}
+
+## Test cases for difference encodings ----
+test_that("Compress and Decompress for different encodings", {
+  emoji_pat <- 	"😑😑 😑"
+  compare_compress_decompress(emoji_pat)
+
+  pat <- rawToChar(as.raw(c(0xce, 0x94, 0xe2, 0x98, 0x85, 0xf0, 0x9f, 0x98, 0x8e)))
+  Encoding(pat) <- "UTF-8"
+  compare_compress_decompress(pat)
+
+  x <- rawToChar(as.raw(c(0xe5, 0x8d, 0x88)))
+  Encoding(x) <- "UTF-8"
+  compare_compress_decompress(x)
+
+  latin1_str <- rawToChar(as.raw(0xFF))
+  Encoding(latin1_str) <- "latin1"
+  compare_compress_decompress(latin1_str)
+})
+
+## Test cases for specific operating systems ----
+test_that("Compress and Decompress for specific operating systems", {
+  skip()
+})
+
