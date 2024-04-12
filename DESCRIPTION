@@ -1,10 +1,13 @@
-Package: lzstringr
+Package: lzstring
 Type: Package
 Title: An R wrapper of lzstring C++ library
 Version: 0.1.0
 Author: Sam Parmar
 Maintainer: Sam Parmar <yourself@somewhere.net>
-Description: An R wrapper of LZ-based compression algorithm implemented in C++
+Description: This package provides an R interface to the lz-string C++ library,
+    enabling LZ-based compression and decompression of strings directly within 
+    R. This can be particularly useful for reducing the memory footprint of 
+    large strings or for transmitting compressed data.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

@@ -7,28 +7,28 @@
 
 // code.cpp
 std::u16string compressToEncodedURIComponent_(std::vector<unsigned char> bytes);
-extern "C" SEXP _lzstringr_compressToEncodedURIComponent_(SEXP bytes) {
+extern "C" SEXP _lzstring_compressToEncodedURIComponent_(SEXP bytes) {
   BEGIN_CPP11
     return cpp11::as_sexp(compressToEncodedURIComponent_(cpp11::as_cpp<cpp11::decay_t<std::vector<unsigned char>>>(bytes)));
   END_CPP11
 }
 // code.cpp
 std::u16string decompressFromEncodedURIComponent_(std::vector<unsigned char> bytes);
-extern "C" SEXP _lzstringr_decompressFromEncodedURIComponent_(SEXP bytes) {
+extern "C" SEXP _lzstring_decompressFromEncodedURIComponent_(SEXP bytes) {
   BEGIN_CPP11
     return cpp11::as_sexp(decompressFromEncodedURIComponent_(cpp11::as_cpp<cpp11::decay_t<std::vector<unsigned char>>>(bytes)));
   END_CPP11
 }
 // code.cpp
 std::u16string compressToBase64_(std::vector<unsigned char> bytes);
-extern "C" SEXP _lzstringr_compressToBase64_(SEXP bytes) {
+extern "C" SEXP _lzstring_compressToBase64_(SEXP bytes) {
   BEGIN_CPP11
     return cpp11::as_sexp(compressToBase64_(cpp11::as_cpp<cpp11::decay_t<std::vector<unsigned char>>>(bytes)));
   END_CPP11
 }
 // code.cpp
 std::u16string decompressFromBase64_(std::vector<unsigned char> bytes);
-extern "C" SEXP _lzstringr_decompressFromBase64_(SEXP bytes) {
+extern "C" SEXP _lzstring_decompressFromBase64_(SEXP bytes) {
   BEGIN_CPP11
     return cpp11::as_sexp(decompressFromBase64_(cpp11::as_cpp<cpp11::decay_t<std::vector<unsigned char>>>(bytes)));
   END_CPP11
@@ -36,15 +36,15 @@ extern "C" SEXP _lzstringr_decompressFromBase64_(SEXP bytes) {
 
 extern "C" {
 static const R_CallMethodDef CallEntries[] = {
-    {"_lzstringr_compressToBase64_",                  (DL_FUNC) &_lzstringr_compressToBase64_,                  1},
-    {"_lzstringr_compressToEncodedURIComponent_",     (DL_FUNC) &_lzstringr_compressToEncodedURIComponent_,     1},
-    {"_lzstringr_decompressFromBase64_",              (DL_FUNC) &_lzstringr_decompressFromBase64_,              1},
-    {"_lzstringr_decompressFromEncodedURIComponent_", (DL_FUNC) &_lzstringr_decompressFromEncodedURIComponent_, 1},
+    {"_lzstring_compressToBase64_",                  (DL_FUNC) &_lzstring_compressToBase64_,                  1},
+    {"_lzstring_compressToEncodedURIComponent_",     (DL_FUNC) &_lzstring_compressToEncodedURIComponent_,     1},
+    {"_lzstring_decompressFromBase64_",              (DL_FUNC) &_lzstring_decompressFromBase64_,              1},
+    {"_lzstring_decompressFromEncodedURIComponent_", (DL_FUNC) &_lzstring_decompressFromEncodedURIComponent_, 1},
     {NULL, NULL, 0}
 };
 }
 
-extern "C" attribute_visible void R_init_lzstringr(DllInfo* dll){
+extern "C" attribute_visible void R_init_lzstring(DllInfo* dll){
   R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
   R_useDynamicSymbols(dll, FALSE);
   R_forceSymbols(dll, TRUE);

@@ -1,5 +1,5 @@
 ## usethis namespace: start
-#' @useDynLib lzstringr, .registration = TRUE
+#' @useDynLib lzstring, .registration = TRUE
 ## usethis namespace: end
 NULL
 
