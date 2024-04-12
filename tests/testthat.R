@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/reference/test_package.html#special-files
 
 library(testthat)
-library(lzstringr)
+library(lzstring)
 
-test_check("lzstringr")
+test_check("lzstring")

@@ -88,6 +88,7 @@ test_that("Decompression from Base64 matches JavaScript implementation output", 
 ## Test cases to ensure the string is UTF-8 encoded ----
 
 test_that("Ensure strings are UTF-8 encoded", {
+
   x <- "fa\xE7ile"
   Encoding(x) <- "latin1"
 
@@ -105,4 +106,75 @@ test_that("Ensure strings are UTF-8 encoded", {
 
   y <- decompressFromBase64(compressToBase64(x))
   expect_equal(Encoding(y), "UTF-8")
+})
+
+## Compress and decompress for comparison ----
+compare_compress_decompress <- function(x) {
+  compressed <- compressToBase64(x)
+  decompressed <- decompressFromBase64(compressed)
+  expect_equal(decompressed, x)
+}
+
+## Test cases for difference encodings ----
+test_that("Compress and Decompress for different encodings", {
+  emoji_pat <- 	"😑😑 😑"
+  compare_compress_decompress(emoji_pat)
+
+  pat <- rawToChar(as.raw(c(0xce, 0x94, 0xe2, 0x98, 0x85, 0xf0, 0x9f, 0x98, 0x8e)))
+  Encoding(pat) <- "UTF-8"
+  compare_compress_decompress(pat)
+
+  x <- rawToChar(as.raw(c(0xe5, 0x8d, 0x88)))
+  Encoding(x) <- "UTF-8"
+  compare_compress_decompress(x)
+
+  latin1_str <- rawToChar(as.raw(0xFF))
+  Encoding(latin1_str) <- "latin1"
+  compare_compress_decompress(latin1_str)
+
+  japanese_text <- "こんにちは"  # Hello in Japanese
+  encoded_text <- iconv(japanese_text, from = "UTF-8", to = "Shift-JIS")
+  decoded_text <- iconv(encoded_text, from = "Shift-JIS", to = "UTF-8")
+  compressed <- compressToBase64(decoded_text)
+  decompressed <- decompressFromBase64(compressed)
+  expect_equal(decompressed, japanese_text)
+})
+
+test_that("Compression handles special characters and symbols", {
+  text <- "𐐷𐑌 – Mathematical symbols: ∑ ∫, Emoji: 😊, Arabic: العربية, Hebrew: עברית"
+  expect_no_error(compressToBase64(text))
+  compare_compress_decompress(text)
+  text <- "漢字 – Kanji, Cyrillic: Цирилица, Thai: ภาษาไทย"
+  expect_no_error(compressToBase64(text))
+  compare_compress_decompress(text)
+})
+
+test_that("Decompression handles malformed input gracefully", {
+  malformed_base64 <- "This isn't base64 at all!"
+  # Decompression should handle this without crashing
+  expect_no_error(decompressFromBase64(malformed_base64))
+  expect_equal(decompressFromBase64(malformed_base64), "")
+})
+
+
+## Test cases for specific operating systems ----
+test_that("Compression handles OS-specific encodings", {
+  skip()
+  input_windows <- iconv("This is a test – with a dash", from = "UTF-8", to = "Windows-1252")
+  input_mac <- iconv("This is a test – with a dash", from = "UTF-8", to = "macintosh")
+  compressToBase64(input_windows)
+  compare_compress_decompress(input_windows)
+  compare_compress_decompress(input_mac)
+})
+
+# Test cases for to and from URI component encoding ----
+test_that("Compress and Decompress for URI encoding", {
+  text <- "[{\"name\":\"app.py\",\"content\":\"from shiny.express import input, render, ui\\n\\nui.input_slider(\\\"n\\\", \\\"N\\\", 0, 100, 20)\\n\\n\\n@render.text\\ndef txt():\\n    return f\\\"n*2 is {input.n() * 2}\\\"\\n\"}]"
+  hash <- "NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbDOAD1R04LFkw4xUxOmTERUAVzJ4mQiABM4dZfI4AdCPp0YuCsgH0WAGw4a6ACl2RHyxwDlnTAAzKAjJ+9MAEyeAJT64RAAAqq2GBR8ZPoaNExkCXYhiPpMOSpwZPJ0EEw0jhAAVIFioiAmihgQGUzlQQC+jvpgrQC6QA"
+
+  compressed <- compressToEncodedURIComponent(text)
+  expect_equal(compressed, hash)
+
+  decompressed <- decompressFromEncodedURIComponent(compressed)
+  expect_equal(decompressed, text)
 })
