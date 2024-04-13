@@ -20,16 +20,12 @@ namespace lzstring
 {
 #ifdef _MSC_VER
 using string = std::wstring;
-#  ifndef _U
-#    define _U(x) L##x
-#  endif
+#  define _U(x) L##x
 #else
 using string = std::u16string;
-#include <uchar.h>
-#  ifndef _U
-#    define _U(x) u##x
-#  endif
+#  define _U(x) u##x
 #endif
+
 namespace __inner
 {
   const string keyStrBase64{_U("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=")};
