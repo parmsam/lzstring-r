@@ -157,6 +157,7 @@ test_that("Compression handles special characters and symbols", {
   expected <- "kT2nVtAEjIBGDSCGB2ArAlgGjAYQJ4CdkBt9kBjALjEDIQQDhBABECsG4QKwMRBAGEHQBUALWZcwAjhATHCBKOAGAROEDocICI4IA==="
   expect_no_error(compressToBase64(text))
   compare_compress_decompress(text)
+  expect_equal(compressToBase64(text), expected)
 })
 
 test_that("Decompression handles malformed input gracefully", {
