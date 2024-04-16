@@ -154,6 +154,7 @@ test_that("Compression handles special characters and symbols", {
   expect_no_error(compressToBase64(text))
   compare_compress_decompress(text)
   text <- "漢字 – Kanji, Cyrillic: Цирилица, Thai: ภาษาไทย"
+  expected <- "kT2nVtAEjIBGDSCGB2ArAlgGjAYQJ4CdkBt9kBjALjEDIQQDhBABECsG4QKwMRBAGEHQBUALWZcwAjhATHCBKOAGAROEDocICI4IA==="
   expect_no_error(compressToBase64(text))
   compare_compress_decompress(text)
 })
