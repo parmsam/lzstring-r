@@ -5,12 +5,21 @@ test_that("Compression to Base64 matches expected output", {
   expected_base64 <- 'r6ABsK6KaAD2aLCADWBfgBPQ9oCAlAZAvgDobEARlB4QAEOAjAUxAGd4BL5AZ4BMBPAQiA=='
 
   expect_equal(compressToBase64(s), expected_base64)
+
+  s <- 'aaaaabaaaaacaaaaadaaaaaeaaaaa'
+  expected_base64 <- 'IYkI1EGNOATWBTWQ'
+
+  expect_equal(compressToBase64(s), expected_base64)
 })
 
 test_that("Decompression from Base64 matches original string", {
   base64 <- 'r6ABsK6KaAD2aLCADWBfgBPQ9oCAlAZAvgDobEARlB4QAEOAjAUxAGd4BL5AZ4BMBPAQiA=='
   original_string <- 'Žluťoučký kůň úpěl ďábelské ódy!'
 
+  expect_equal(decompressFromBase64(base64), original_string)
+
+  base64 <- "CoCwpgBAjgrglgYwNYQEYCcD2B3AdhAM0wA8IArGAWwAcBnCTANzHQgBdwIAbAQwC8AnhAAmmAOZA"
+  original_string <- "The quick brown fox jumps over the lazy dog"
   expect_equal(decompressFromBase64(base64), original_string)
 })
 
@@ -165,6 +174,14 @@ test_that("Compression handles OS-specific encodings", {
   compressToBase64(input_windows)
   compare_compress_decompress(input_windows)
   compare_compress_decompress(input_mac)
+})
+
+# Test cases to URI component compression ----
+test_that("Compress to URI component", {
+  text <- "aaaaabaaaaacaaaaadaaaaaeaaaaa"
+  compressed <- compressToEncodedURIComponent(text)
+  expected <- "IYkI1EGNOATWBTWQ"
+  expect_equal(compressed, expected)
 })
 
 # Test cases for to and from URI component encoding ----
