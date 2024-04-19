@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://parmsam.github.io/lzstring-r/404.html</loc>
+  </url>
+  <url>
+    <loc>https://parmsam.github.io/lzstring-r/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://parmsam.github.io/lzstring-r/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://parmsam.github.io/lzstring-r/authors.html</loc>
+  </url>
+  <url>
+    <loc>https://parmsam.github.io/lzstring-r/index.html</loc>
+  </url>
+  <url>
+    <loc>https://parmsam.github.io/lzstring-r/reference/compressToBase64.html</loc>
+  </url>
+  <url>
+    <loc>https://parmsam.github.io/lzstring-r/reference/compressToEncodedURIComponent.html</loc>
+  </url>
+  <url>
+    <loc>https://parmsam.github.io/lzstring-r/reference/decompressFromBase64.html</loc>
+  </url>
+  <url>
+    <loc>https://parmsam.github.io/lzstring-r/reference/decompressFromEncodedURIComponent.html</loc>
+  </url>
+  <url>
+    <loc>https://parmsam.github.io/lzstring-r/reference/index.html</loc>
+  </url>
+</urlset>
