@@ -32,8 +32,13 @@ decode_utf16_surrogate <- function(values) {
 
 safe_compress <- function(string, f) {
   string <- enc2utf8(string)
-  string <- iconv(string, from="UTF-8", to="UTF-16", toRaw=TRUE)[[1]]
-  result <- f(string)
+  # Convert to UTF-16LE and ensure BOM is present (little-endian BOM: 0xFFFE)
+  string_utf16 <- iconv(string, from="UTF-8", to="UTF-16LE", toRaw=TRUE)[[1]]
+  bom_le <- charToRaw("\xFF\xFE")
+  if (!identical(string_utf16[1:2], bom_le)) {
+    string_utf16 <- c(bom_le, string_utf16)
+  }
+  result <- f(string_utf16)
   chr_result <- rawToChar(as.raw(result))
   Encoding(chr_result) <- "UTF-8"
   chr_result
@@ -41,8 +46,13 @@ safe_compress <- function(string, f) {
 
 safe_decompress <- function(string, f) {
   string <- enc2utf8(string)
-  string <- iconv(string, from="UTF-8", to="UTF-16", toRaw=TRUE)[[1]]
-  result <- f(string)
+  # Convert to UTF-16LE and ensure BOM is present (little-endian BOM: 0xFFFE)
+  string_utf16 <- iconv(string, from="UTF-8", to="UTF-16LE", toRaw=TRUE)[[1]]
+  bom_le <- charToRaw("\xFF\xFE")
+  if (!identical(string_utf16[1:2], bom_le)) {
+    string_utf16 <- c(bom_le, string_utf16)
+  }
+  result <- f(string_utf16)
   chr_result <- decode_utf16_surrogate(result)
   Encoding(chr_result) <- "UTF-8"
   chr_result

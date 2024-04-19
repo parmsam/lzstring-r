@@ -216,8 +216,8 @@ test_that("Many digits of pi",{
   pi10k <- readLines("resources/pi.txt")
   # limit to the first 4054 characters
   pi10k <- paste0(pi10k, collapse = "")
-  pi5k <- substr(pi10k, 1, 4094)
-  expect_no_error(compressToBase64(pi5k))
+  expect_no_error(compressToBase64(pi10k))
+  compare_compress_decompress(pi10k)
 })
 
 # Test case for lorem ipsum ----
@@ -225,4 +225,13 @@ test_that("Many digits of pi",{
 test_that("Lorem ipsum text",{
   lorem <- readLines("resources/lorem.txt")
   expect_no_error(compressToBase64(lorem))
+  # compare_compress_decompress(lorem)
+})
+
+# Test case for orbit Shiny for Python app ----
+
+test_that("Orbit Shiny for Python app",{
+  orbit <- readLines("resources/orbit-app-uri.txt")
+  x <- decompressFromEncodedURIComponent(orbit)
+  expect_true(grepl("app.py", substr(x, 1, 20)))
 })
