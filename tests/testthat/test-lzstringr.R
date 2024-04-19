@@ -236,3 +236,16 @@ test_that("Orbit Shiny for Python app",{
   x <- decompressFromEncodedURIComponent(orbit)
   expect_true(grepl("app.py", substr(x, 1, 20)))
 })
+
+# Test case for many new lines ----
+
+test_that("String with a bunch of new lines",{
+x <- "
+1
+A
+
+
+500
+"
+  compare_compress_decompress(x)
+})
