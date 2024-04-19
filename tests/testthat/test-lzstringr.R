@@ -206,14 +206,14 @@ test_that("Compress and Decompress for URI encoding", {
 # Test case for repeated ----
 
 test_that('"abcd", but longer (128 of each character).',{
-  repeated <- read.delim("resources/repeated.txt", header = F)[[1]]
+  repeated <- readLines("resources/repeated.txt")
   compare_compress_decompress(repeated)
 })
 
 # Test case for 10,000 digits of pi ----
 
 test_that("Many digits of pi",{
-  pi10k <- read.delim("resources/pi.txt", header = F)[[1]]
+  pi10k <- readLines("resources/pi.txt")
   # limit to the first 4054 characters
   pi10k <- paste0(pi10k, collapse = "")
   pi5k <- substr(pi10k, 1, 4094)
@@ -223,6 +223,6 @@ test_that("Many digits of pi",{
 # Test case for lorem ipsum ----
 
 test_that("Lorem ipsum text",{
-  lorem <- read.delim("resources/lorem.txt", header = F)[[1]]
+  lorem <- readLines("resources/lorem.txt")
   expect_no_error(compressToBase64(lorem))
 })
