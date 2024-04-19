@@ -206,23 +206,46 @@ test_that("Compress and Decompress for URI encoding", {
 # Test case for repeated ----
 
 test_that('"abcd", but longer (128 of each character).',{
-  repeated <- read.delim("resources/repeated.txt", header = F)[[1]]
+  repeated <- readLines("resources/repeated.txt")
   compare_compress_decompress(repeated)
 })
 
 # Test case for 10,000 digits of pi ----
 
 test_that("Many digits of pi",{
-  pi10k <- read.delim("resources/pi.txt", header = F)[[1]]
+  pi10k <- readLines("resources/pi.txt")
   # limit to the first 4054 characters
   pi10k <- paste0(pi10k, collapse = "")
-  pi5k <- substr(pi10k, 1, 4094)
-  expect_no_error(compressToBase64(pi5k))
+  expect_no_error(compressToBase64(pi10k))
+  compare_compress_decompress(pi10k)
 })
 
 # Test case for lorem ipsum ----
 
 test_that("Lorem ipsum text",{
-  lorem <- read.delim("resources/lorem.txt", header = F)[[1]]
+  lorem <- readLines("resources/lorem.txt")
+  lorem <- paste0(lorem, collapse = "\n")
   expect_no_error(compressToBase64(lorem))
+  compare_compress_decompress(lorem)
+})
+
+# Test case for orbit Shiny for Python app ----
+
+test_that("Orbit Shiny for Python app",{
+  orbit <- readLines("resources/orbit-app-uri.txt")
+  x <- decompressFromEncodedURIComponent(orbit)
+  expect_true(grepl("app.py", substr(x, 1, 20)))
+})
+
+# Test case for many new lines ----
+
+test_that("String with a bunch of new lines",{
+x <- "
+1
+A
+
+
+500
+"
+  compare_compress_decompress(x)
 })
