@@ -1,8 +1,21 @@
+## Utility function compress and decompress for comparison ----
+
+compare_compress_decompress <- function(x) {
+  compressed <- compressToBase64(x)
+  decompressed <- decompressFromBase64(compressed)
+  expect_equal(decompressed, x)
+}
+
 ## Test cases originally from Python implementation ----
 
 test_that("Compression to Base64 matches expected output", {
   s <- 'Žluťoučký kůň úpěl ďábelské ódy!'
   expected_base64 <- 'r6ABsK6KaAD2aLCADWBfgBPQ9oCAlAZAvgDobEARlB4QAEOAjAUxAGd4BL5AZ4BMBPAQiA=='
+
+  expect_equal(compressToBase64(s), expected_base64)
+
+  s <- 'aaaaabaaaaacaaaaadaaaaaeaaaaa'
+  expected_base64 <- 'IYkI1EGNOATWBTWQ'
 
   expect_equal(compressToBase64(s), expected_base64)
 })
@@ -11,6 +24,10 @@ test_that("Decompression from Base64 matches original string", {
   base64 <- 'r6ABsK6KaAD2aLCADWBfgBPQ9oCAlAZAvgDobEARlB4QAEOAjAUxAGd4BL5AZ4BMBPAQiA=='
   original_string <- 'Žluťoučký kůň úpěl ďábelské ódy!'
 
+  expect_equal(decompressFromBase64(base64), original_string)
+
+  base64 <- "CoCwpgBAjgrglgYwNYQEYCcD2B3AdhAM0wA8IArGAWwAcBnCTANzHQgBdwIAbAQwC8AnhAAmmAOZA"
+  original_string <- "The quick brown fox jumps over the lazy dog"
   expect_equal(decompressFromBase64(base64), original_string)
 })
 
@@ -108,14 +125,8 @@ test_that("Ensure strings are UTF-8 encoded", {
   expect_equal(Encoding(y), "UTF-8")
 })
 
-## Compress and decompress for comparison ----
-compare_compress_decompress <- function(x) {
-  compressed <- compressToBase64(x)
-  decompressed <- decompressFromBase64(compressed)
-  expect_equal(decompressed, x)
-}
-
 ## Test cases for difference encodings ----
+
 test_that("Compress and Decompress for different encodings", {
   emoji_pat <- 	"😑😑 😑"
   compare_compress_decompress(emoji_pat)
@@ -145,8 +156,10 @@ test_that("Compression handles special characters and symbols", {
   expect_no_error(compressToBase64(text))
   compare_compress_decompress(text)
   text <- "漢字 – Kanji, Cyrillic: Цирилица, Thai: ภาษาไทย"
+  expected <- "kT2nVtAEjIBGDSCGB2ArAlgGjAYQJ4CdkBt9kBjALjEDIQQDhBABECsG4QKwMRBAGEHQBUALWZcwAjhATHCBKOAGAROEDocICI4IA==="
   expect_no_error(compressToBase64(text))
   compare_compress_decompress(text)
+  expect_equal(compressToBase64(text), expected)
 })
 
 test_that("Decompression handles malformed input gracefully", {
@@ -158,6 +171,7 @@ test_that("Decompression handles malformed input gracefully", {
 
 
 ## Test cases for specific operating systems ----
+
 test_that("Compression handles OS-specific encodings", {
   skip()
   input_windows <- iconv("This is a test – with a dash", from = "UTF-8", to = "Windows-1252")
@@ -167,7 +181,17 @@ test_that("Compression handles OS-specific encodings", {
   compare_compress_decompress(input_mac)
 })
 
+# Test cases to URI component compression ----
+
+test_that("Compress to URI component", {
+  text <- "aaaaabaaaaacaaaaadaaaaaeaaaaa"
+  compressed <- compressToEncodedURIComponent(text)
+  expected <- "IYkI1EGNOATWBTWQ"
+  expect_equal(compressed, expected)
+})
+
 # Test cases for to and from URI component encoding ----
+
 test_that("Compress and Decompress for URI encoding", {
   text <- "[{\"name\":\"app.py\",\"content\":\"from shiny.express import input, render, ui\\n\\nui.input_slider(\\\"n\\\", \\\"N\\\", 0, 100, 20)\\n\\n\\n@render.text\\ndef txt():\\n    return f\\\"n*2 is {input.n() * 2}\\\"\\n\"}]"
   hash <- "NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbDOAD1R04LFkw4xUxOmTERUAVzJ4mQiABM4dZfI4AdCPp0YuCsgH0WAGw4a6ACl2RHyxwDlnTAAzKAjJ+9MAEyeAJT64RAAAqq2GBR8ZPoaNExkCXYhiPpMOSpwZPJ0EEw0jhAAVIFioiAmihgQGUzlQQC+jvpgrQC6QA"
@@ -177,4 +201,28 @@ test_that("Compress and Decompress for URI encoding", {
 
   decompressed <- decompressFromEncodedURIComponent(compressed)
   expect_equal(decompressed, text)
+})
+
+# Test case for repeated ----
+
+test_that('"abcd", but longer (128 of each character).',{
+  repeated <- readr::read_lines("resources/repeated.txt")
+  compare_compress_decompress(repeated)
+})
+
+# Test case for 10,000 digits of pi ----
+
+test_that("Many digits of pi",{
+  pi10k <-readr::read_lines("resources/pi.txt")
+  # limit to the first 4054 characters
+  pi10k <- paste0(pi10k, collapse = "")
+  pi5k <- substr(pi10k, 1, 4094)
+  expect_no_error(compressToBase64(pi5k))
+})
+
+# Test case for lorem ipsum ----
+
+test_that("Lorem ipsum text",{
+  lorem <- readr::read_lines("resources/lorem.txt")
+  expect_no_error(compressToBase64(lorem))
 })
