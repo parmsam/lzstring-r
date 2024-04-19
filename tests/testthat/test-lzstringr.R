@@ -224,8 +224,9 @@ test_that("Many digits of pi",{
 
 test_that("Lorem ipsum text",{
   lorem <- readLines("resources/lorem.txt")
+  lorem <- paste0(lorem, collapse = "\n")
   expect_no_error(compressToBase64(lorem))
-  # compare_compress_decompress(lorem)
+  compare_compress_decompress(lorem)
 })
 
 # Test case for orbit Shiny for Python app ----
