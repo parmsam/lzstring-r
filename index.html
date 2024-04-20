@@ -71,9 +71,10 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://parmsam.github.io/lzstring-r/">lzstring</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">data</span> <span class="op">=</span> <span class="st">"The quick brown fox jumps over the lazy dog!"</span>;</span>
+<span><span class="co"># text data</span></span>
+<span><span class="va">message</span> <span class="op">=</span> <span class="st">"The quick brown fox jumps over the lazy dog!"</span>;</span>
 <span></span>
-<span><span class="va">compressed</span> <span class="op">=</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/compressToBase64.html">compressToBase64</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
+<span><span class="va">compressed</span> <span class="op">=</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/compressToBase64.html">compressToBase64</a></span><span class="op">(</span><span class="va">message</span><span class="op">)</span></span>
 <span><span class="va">compressed</span></span>
 <span><span class="co">#&gt; [1] "CoCwpgBAjgrglgYwNYQEYCcD2B3AdhAM0wA8IArGAWwAcBnCTANzHQgBdwIAbAQwC8AnhAAmmAOYBCIA"</span></span>
 <span></span>
@@ -81,9 +82,79 @@
 <span><span class="va">decompressed</span></span>
 <span><span class="co">#&gt; [1] "The quick brown fox jumps over the lazy dog!"</span></span></code></pre></div>
 <div class="section level3">
-<h3 id="shinylive-for-r">Shinylive for R<a class="anchor" aria-label="anchor" href="#shinylive-for-r"></a>
+<h3 id="json-data">JSON data<a class="anchor" aria-label="anchor" href="#json-data"></a>
 </h3>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># JSON data</span></span>
+<span><span class="va">json_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"John Doe"</span>, age <span class="op">=</span> <span class="fl">30</span>, email <span class="op">=</span> <span class="st">"john.doe@example.com"</span><span class="op">)</span></span>
+<span><span class="va">json_string</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">toJSON</a></span><span class="op">(</span><span class="va">json_data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">compressed</span> <span class="op">=</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/compressToBase64.html">compressToBase64</a></span><span class="op">(</span><span class="va">json_string</span><span class="op">)</span></span>
+<span><span class="va">compressed</span></span>
+<span><span class="co">#&gt; [1] "N4IgdghgtgpiBcBtEApA9gCzAAgCJrgF0AaECAcziQGYAGEkGKCASwBsFkArTMAOgAmBAAIwAHtAAObGHwDGaKCEIBfIA==="</span></span>
+<span></span>
+<span><span class="va">decompressed</span> <span class="op">=</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/decompressFromBase64.html">decompressFromBase64</a></span><span class="op">(</span><span class="va">compressed</span><span class="op">)</span></span>
+<span><span class="va">decompressed</span></span>
+<span><span class="co">#&gt; [1] "{\"name\":[\"John Doe\"],\"age\":[30],\"email\":[\"john.doe@example.com\"]}"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">json_string</span>, <span class="va">decompressed</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] FALSE</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="js-code">JS code<a class="anchor" aria-label="anchor" href="#js-code"></a>
+</h3>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">js_code</span> <span class="op">&lt;-</span> <span class="st">"function test() { console.log('Hello, World!'); }"</span></span>
+<span><span class="va">compressed</span> <span class="op">=</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/compressToBase64.html">compressToBase64</a></span><span class="op">(</span><span class="va">js_code</span><span class="op">)</span></span>
+<span><span class="va">compressed</span></span>
+<span><span class="co">#&gt; [1] "GYVwdgxgLglg9mABFApgZygCgJSIN6IQJpwA2KAdKXAOaYDkAEiqdQDSIDqcATqQCYBCetgDciAL5A=="</span></span>
+<span></span>
+<span><span class="va">decompressed</span> <span class="op">=</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/decompressFromBase64.html">decompressFromBase64</a></span><span class="op">(</span><span class="va">compressed</span><span class="op">)</span></span>
+<span><span class="va">decompressed</span></span>
+<span><span class="co">#&gt; [1] "function test() { console.log('Hello, World!'); }"</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="r-code">R code<a class="anchor" aria-label="anchor" href="#r-code"></a>
+</h3>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">r_code</span> <span class="op">&lt;-</span> <span class="st">'</span></span>
+<span><span class="st">library(dplyr)</span></span>
+<span><span class="st"></span></span>
+<span><span class="st">data &lt;- data.frame(</span></span>
+<span><span class="st">  name = c("John", "Jane", "Jake"),</span></span>
+<span><span class="st">  age = c(28, 22, 32),</span></span>
+<span><span class="st">  salary = c(50000, 60000, 55000)</span></span>
+<span><span class="st">)</span></span>
+<span><span class="st"></span></span>
+<span><span class="st"># Filter data for age greater than 25</span></span>
+<span><span class="st">filtered_data &lt;- filter(data, age &gt; 25)</span></span>
+<span><span class="st"></span></span>
+<span><span class="st"># Add a new column with updated salary</span></span>
+<span><span class="st">data &lt;- mutate(data, updated_salary = salary * 1.05)</span></span>
+<span><span class="st">'</span></span>
+<span><span class="va">compressed</span> <span class="op">=</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/compressToBase64.html">compressToBase64</a></span><span class="op">(</span><span class="va">r_code</span><span class="op">)</span></span>
+<span><span class="va">compressed</span></span>
+<span><span class="co">#&gt; [1] "FAGwlgRgTghlCeAKAJgBxPKBKYxkwBcYACAHgFpj8iA6AM1gFsBTRYY4gOxheIF5iAY0QAiAFIB7ABacRAGmLiYnZvMViYAa1VY57YjADmzfkMQAmABwLz5hQGZzu/QGcYIOPFPCArAAYAvwUANkCg4h9/AJwcYABiYgAxMBACZigqQhI6CQyjE0MoZkJ04gIpZWJzH2A6FLSi5AB9ahIKYjrU9JQshXziAD4qn1iEgEFkZAMuZgB3IQkQAFdGTmJZsHLiJdRqZim3DwQ8LLJKRiWiNJ6iBR295sPPUyeEYgAqYgBGGj8R4CAA=="</span></span>
+<span><span class="va">decompose</span> <span class="op">=</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/decompressFromBase64.html">decompressFromBase64</a></span><span class="op">(</span><span class="va">compressed</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">decompose</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; library(dplyr)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; data &lt;- data.frame(</span></span>
+<span><span class="co">#&gt;   name = c("John", "Jane", "Jake"),</span></span>
+<span><span class="co">#&gt;   age = c(28, 22, 32),</span></span>
+<span><span class="co">#&gt;   salary = c(50000, 60000, 55000)</span></span>
+<span><span class="co">#&gt; )</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # Filter data for age greater than 25</span></span>
+<span><span class="co">#&gt; filtered_data &lt;- filter(data, age &gt; 25)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # Add a new column with updated salary</span></span>
+<span><span class="co">#&gt; data &lt;- mutate(data, updated_salary = salary * 1.05)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="decompress-shinylive-hashes">Decompress Shinylive Hashes<a class="anchor" aria-label="anchor" href="#decompress-shinylive-hashes"></a>
+</h3>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/decompressFromEncodedURIComponent.html">decompressFromEncodedURIComponent</a></span><span class="op">(</span><span class="st">"NobwRAdghgtgpmAXGKAHVA6ASmANGAYwHsIAXOMpMAGwEsAjAJykYE8AKAZwAtaJWAlAB0IdJiw71OY4RBEBiAAQAROADM+cRQFUAkorVFGitKkWluUUooAmzAO6cTi3p1JEA5sxiKAtP98RAFdaRQAeX0VUKA84AH1OWhs4ehZ2ERFFRSUAQXRzWlJqLQDAiCzSQuLFAF5FITAACThqaiJFAGVefgBCBtwM8uzOpJSWKKgIFoMjRT5UINInUszFROTU4zr1scZ0uSGspV0IBdJETrpk40NjCy0IIJh6OGMiNUV6PmWA1azpUaME5nfZZMFzU6LXQ2Wr1MBfCCcfp-MHUKAvaiwhoAOSeLzeHwRnEQyMOYJgfFhAEYBmSsjAoAAPWEAVgADLTwVkAG5QahBLR1ADMbJRsiyAlpqyUAHlFmcLo1aG5PN4-L8hqg2qQ5aQQUR5VCYXUGjZlaQAArahqyWQKFTqTRrV7c16KNoeWgERSMOAARxCvph7lsDmcrncXlg6v8Ik4LrdEQMQQgBEqJHY80WuEUBr1iwEihAgyOiiVKqjPne5m4Whl1BhADEoIVuGogpiAOJwVjx4zKKxQGNlUv2Vs+-0CtxwGGPZ5u6tE6WKAAqrkUcEZqF9nESJBrVkUsSmzHITiHEdV0eVinszHQM4hzgIfOoy5Dvog1ytRGsIb4ZovuQB7nNKy5Uhgii6NYN4NL6UBprQroNCYX41q86hGFoPAGg2nxaFAixEAylQvq0rDLmCvq+JucAEIsj72LW5RZksiiZpCpAACREoWBCWBAsTLgATJB0FOHmZzmKwqBaDeQ5ar+qySYsXFmm4P7WEmn7ftq7DFmSzJJmoLYWO21BcfYpl8B4KJEuEkTxn67AUhA7CMpKigMoy7mecUgkWBgeawqxPHfIoADUihUnaZIRqCXKMpyXJMHAUAANZOHURLJeCxCYiaYDyAA7CyOQ5MoABCpJcp8RjXFiYBMYUcA1YlaL0I1ADq1mCQU8DmO0UyMtYrxBKg6blBxXnfMIeAovSLblIV5aRmq1ZWYUNn9XASJgGKqwAL6yIdgxKAAwvBwFdHwrAmPkKyIt0rB5Kg7AhLCIQ5n2rpbM6jC-bIYCHQAukAA"</span><span class="op">)</span></span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">y</span><span class="op">$</span><span class="va">name</span><span class="op">)</span></span>
@@ -143,11 +214,7 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; # Create Shiny app ----</span></span>
 <span><span class="co">#&gt; shinyApp(ui = ui, server = server)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="shinylive-for-python">Shinylive for Python<a class="anchor" aria-label="anchor" href="#shinylive-for-python"></a>
-</h3>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/decompressFromEncodedURIComponent.html">decompressFromEncodedURIComponent</a></span><span class="op">(</span><span class="st">"NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbDOAD1R04LFkw4xUxOmTERUAVzJ4mQiABM4dZfI4AdCPp0YuCsgH0WAGw4a6ACl2RHyxwDlnTAAzKAjJ+9MAEyeAJT64RAAAqq2GBR8ZPoaNExkCXYhiPpMOSpwZPJ0EEw0jhAAVIFioiAmihgQGUzlQQC+jvpgrQC6QA"</span><span class="op">)</span></span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">y</span><span class="op">$</span><span class="va">name</span><span class="op">)</span></span>
