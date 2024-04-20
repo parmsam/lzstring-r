@@ -50,8 +50,8 @@ compressed
 #> [1] "CoCwpgBAjgrglgYwNYQEYCcD2B3AdhAM0wA8IArGAWwAcBnCTANzHQgBdwIAbAQwC8AnhAAmmAOYBCIA"
 
 decompressed = lzstring::decompressFromBase64(compressed)
-decompressed
-#> [1] "The quick brown fox jumps over the lazy dog!"
+cat(decompressed)
+#> The quick brown fox jumps over the lazy dog!
 ```
 
 ### JSON data
@@ -66,10 +66,10 @@ compressed
 #> [1] "N4IgdghgtgpiBcBtEApA9gCzAAgCJrgF0AaECAcziQGYAGEkGKCASwBsFkArTMAOgAmBAAIwAHtAAObGHwDGaKCEIBfIA==="
 
 decompressed = lzstring::decompressFromBase64(compressed)
-decompressed
-#> [1] "{\"name\":[\"John Doe\"],\"age\":[30],\"email\":[\"john.doe@example.com\"]}"
 identical(json_string, decompressed)
 #> [1] FALSE
+cat(decompressed)
+#> {"name":["John Doe"],"age":[30],"email":["john.doe@example.com"]}
 ```
 
 ### JS code
@@ -81,8 +81,8 @@ compressed
 #> [1] "GYVwdgxgLglg9mABFApgZygCgJSIN6IQJpwA2KAdKXAOaYDkAEiqdQDSIDqcATqQCYBCetgDciAL5A=="
 
 decompressed = lzstring::decompressFromBase64(compressed)
-decompressed
-#> [1] "function test() { console.log('Hello, World!'); }"
+cat(decompressed)
+#> function test() { console.log('Hello, World!'); }
 ```
 
 ### R code
