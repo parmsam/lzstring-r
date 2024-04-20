@@ -40,16 +40,67 @@ This is a basic example which shows you how to solve a common problem:
 ```{r example}
 library(lzstring)
 
-data = "The quick brown fox jumps over the lazy dog!";
+# text data
+message = "The quick brown fox jumps over the lazy dog!";
 
-compressed = lzstring::compressToBase64(data)
+compressed = lzstring::compressToBase64(message)
 compressed
 
 decompressed = lzstring::decompressFromBase64(compressed)
 decompressed
 ```
 
-### Shinylive for R 
+### JSON data
+
+```{r}
+# JSON data
+json_data <- list(name = "John Doe", age = 30, email = "john.doe@example.com")
+json_string <- jsonlite::toJSON(json_data)
+
+compressed = lzstring::compressToBase64(json_string)
+compressed
+
+decompressed = lzstring::decompressFromBase64(compressed)
+decompressed
+identical(json_string, decompressed)
+```
+
+### JS code
+
+```{r}
+js_code <- "function test() { console.log('Hello, World!'); }"
+compressed = lzstring::compressToBase64(js_code)
+compressed
+
+decompressed = lzstring::decompressFromBase64(compressed)
+decompressed
+```
+
+### R code
+
+```{r}
+r_code <- '
+library(dplyr)
+
+data <- data.frame(
+  name = c("John", "Jane", "Jake"),
+  age = c(28, 22, 32),
+  salary = c(50000, 60000, 55000)
+)
+
+# Filter data for age greater than 25
+filtered_data <- filter(data, age > 25)
+
+# Add a new column with updated salary
+data <- mutate(data, updated_salary = salary * 1.05)
+'
+compressed = lzstring::compressToBase64(r_code)
+compressed
+decompose = lzstring::decompressFromBase64(compressed)
+cat(decompose)
+```
+
+### Decompress Shinylive Hashes
 
 ```{r example2-r-shiny}
 x <- lzstring::decompressFromEncodedURIComponent("NobwRAdghgtgpmAXGKAHVA6ASmANGAYwHsIAXOMpMAGwEsAjAJykYE8AKAZwAtaJWAlAB0IdJiw71OY4RBEBiAAQAROADM+cRQFUAkorVFGitKkWluUUooAmzAO6cTi3p1JEA5sxiKAtP98RAFdaRQAeX0VUKA84AH1OWhs4ehZ2ERFFRSUAQXRzWlJqLQDAiCzSQuLFAF5FITAACThqaiJFAGVefgBCBtwM8uzOpJSWKKgIFoMjRT5UINInUszFROTU4zr1scZ0uSGspV0IBdJETrpk40NjCy0IIJh6OGMiNUV6PmWA1azpUaME5nfZZMFzU6LXQ2Wr1MBfCCcfp-MHUKAvaiwhoAOSeLzeHwRnEQyMOYJgfFhAEYBmSsjAoAAPWEAVgADLTwVkAG5QahBLR1ADMbJRsiyAlpqyUAHlFmcLo1aG5PN4-L8hqg2qQ5aQQUR5VCYXUGjZlaQAArahqyWQKFTqTRrV7c16KNoeWgERSMOAARxCvph7lsDmcrncXlg6v8Ik4LrdEQMQQgBEqJHY80WuEUBr1iwEihAgyOiiVKqjPne5m4Whl1BhADEoIVuGogpiAOJwVjx4zKKxQGNlUv2Vs+-0CtxwGGPZ5u6tE6WKAAqrkUcEZqF9nESJBrVkUsSmzHITiHEdV0eVinszHQM4hzgIfOoy5Dvog1ytRGsIb4ZovuQB7nNKy5Uhgii6NYN4NL6UBprQroNCYX41q86hGFoPAGg2nxaFAixEAylQvq0rDLmCvq+JucAEIsj72LW5RZksiiZpCpAACREoWBCWBAsTLgATJB0FOHmZzmKwqBaDeQ5ar+qySYsXFmm4P7WEmn7ftq7DFmSzJJmoLYWO21BcfYpl8B4KJEuEkTxn67AUhA7CMpKigMoy7mecUgkWBgeawqxPHfIoADUihUnaZIRqCXKMpyXJMHAUAANZOHURLJeCxCYiaYDyAA7CyOQ5MoABCpJcp8RjXFiYBMYUcA1YlaL0I1ADq1mCQU8DmO0UyMtYrxBKg6blBxXnfMIeAovSLblIV5aRmq1ZWYUNn9XASJgGKqwAL6yIdgxKAAwvBwFdHwrAmPkKyIt0rB5Kg7AhLCIQ5n2rpbM6jC-bIYCHQAukAA")
@@ -58,10 +109,9 @@ cat(y$name)
 cat(y$content)
 ```
 
-### Shinylive for Python
-
 ```{r example3-py-shiny}
 x <- lzstring::decompressFromEncodedURIComponent("NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbDOAD1R04LFkw4xUxOmTERUAVzJ4mQiABM4dZfI4AdCPp0YuCsgH0WAGw4a6ACl2RHyxwDlnTAAzKAjJ+9MAEyeAJT64RAAAqq2GBR8ZPoaNExkCXYhiPpMOSpwZPJ0EEw0jhAAVIFioiAmihgQGUzlQQC+jvpgrQC6QA")
 y <- jsonlite::fromJSON(x)
 cat(y$name)
 cat(y$content)
+```

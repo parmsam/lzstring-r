@@ -42,9 +42,10 @@ This is a basic example which shows you how to solve a common problem:
 ``` r
 library(lzstring)
 
-data = "The quick brown fox jumps over the lazy dog!";
+# text data
+message = "The quick brown fox jumps over the lazy dog!";
 
-compressed = lzstring::compressToBase64(data)
+compressed = lzstring::compressToBase64(message)
 compressed
 #> [1] "CoCwpgBAjgrglgYwNYQEYCcD2B3AdhAM0wA8IArGAWwAcBnCTANzHQgBdwIAbAQwC8AnhAAmmAOYBCIA"
 
@@ -53,7 +54,77 @@ decompressed
 #> [1] "The quick brown fox jumps over the lazy dog!"
 ```
 
-### Shinylive for R
+### JSON data
+
+``` r
+# JSON data
+json_data <- list(name = "John Doe", age = 30, email = "john.doe@example.com")
+json_string <- jsonlite::toJSON(json_data)
+
+compressed = lzstring::compressToBase64(json_string)
+compressed
+#> [1] "N4IgdghgtgpiBcBtEApA9gCzAAgCJrgF0AaECAcziQGYAGEkGKCASwBsFkArTMAOgAmBAAIwAHtAAObGHwDGaKCEIBfIA==="
+
+decompressed = lzstring::decompressFromBase64(compressed)
+decompressed
+#> [1] "{\"name\":[\"John Doe\"],\"age\":[30],\"email\":[\"john.doe@example.com\"]}"
+identical(json_string, decompressed)
+#> [1] FALSE
+```
+
+### JS code
+
+``` r
+js_code <- "function test() { console.log('Hello, World!'); }"
+compressed = lzstring::compressToBase64(js_code)
+compressed
+#> [1] "GYVwdgxgLglg9mABFApgZygCgJSIN6IQJpwA2KAdKXAOaYDkAEiqdQDSIDqcATqQCYBCetgDciAL5A=="
+
+decompressed = lzstring::decompressFromBase64(compressed)
+decompressed
+#> [1] "function test() { console.log('Hello, World!'); }"
+```
+
+### R code
+
+``` r
+r_code <- '
+library(dplyr)
+
+data <- data.frame(
+  name = c("John", "Jane", "Jake"),
+  age = c(28, 22, 32),
+  salary = c(50000, 60000, 55000)
+)
+
+# Filter data for age greater than 25
+filtered_data <- filter(data, age > 25)
+
+# Add a new column with updated salary
+data <- mutate(data, updated_salary = salary * 1.05)
+'
+compressed = lzstring::compressToBase64(r_code)
+compressed
+#> [1] "FAGwlgRgTghlCeAKAJgBxPKBKYxkwBcYACAHgFpj8iA6AM1gFsBTRYY4gOxheIF5iAY0QAiAFIB7ABacRAGmLiYnZvMViYAa1VY57YjADmzfkMQAmABwLz5hQGZzu/QGcYIOPFPCArAAYAvwUANkCg4h9/AJwcYABiYgAxMBACZigqQhI6CQyjE0MoZkJ04gIpZWJzH2A6FLSi5AB9ahIKYjrU9JQshXziAD4qn1iEgEFkZAMuZgB3IQkQAFdGTmJZsHLiJdRqZim3DwQ8LLJKRiWiNJ6iBR295sPPUyeEYgAqYgBGGj8R4CAA=="
+decompose = lzstring::decompressFromBase64(compressed)
+cat(decompose)
+#> 
+#> library(dplyr)
+#> 
+#> data <- data.frame(
+#>   name = c("John", "Jane", "Jake"),
+#>   age = c(28, 22, 32),
+#>   salary = c(50000, 60000, 55000)
+#> )
+#> 
+#> # Filter data for age greater than 25
+#> filtered_data <- filter(data, age > 25)
+#> 
+#> # Add a new column with updated salary
+#> data <- mutate(data, updated_salary = salary * 1.05)
+```
+
+### Decompress Shinylive Hashes
 
 ``` r
 x <- lzstring::decompressFromEncodedURIComponent("NobwRAdghgtgpmAXGKAHVA6ASmANGAYwHsIAXOMpMAGwEsAjAJykYE8AKAZwAtaJWAlAB0IdJiw71OY4RBEBiAAQAROADM+cRQFUAkorVFGitKkWluUUooAmzAO6cTi3p1JEA5sxiKAtP98RAFdaRQAeX0VUKA84AH1OWhs4ehZ2ERFFRSUAQXRzWlJqLQDAiCzSQuLFAF5FITAACThqaiJFAGVefgBCBtwM8uzOpJSWKKgIFoMjRT5UINInUszFROTU4zr1scZ0uSGspV0IBdJETrpk40NjCy0IIJh6OGMiNUV6PmWA1azpUaME5nfZZMFzU6LXQ2Wr1MBfCCcfp-MHUKAvaiwhoAOSeLzeHwRnEQyMOYJgfFhAEYBmSsjAoAAPWEAVgADLTwVkAG5QahBLR1ADMbJRsiyAlpqyUAHlFmcLo1aG5PN4-L8hqg2qQ5aQQUR5VCYXUGjZlaQAArahqyWQKFTqTRrV7c16KNoeWgERSMOAARxCvph7lsDmcrncXlg6v8Ik4LrdEQMQQgBEqJHY80WuEUBr1iwEihAgyOiiVKqjPne5m4Whl1BhADEoIVuGogpiAOJwVjx4zKKxQGNlUv2Vs+-0CtxwGGPZ5u6tE6WKAAqrkUcEZqF9nESJBrVkUsSmzHITiHEdV0eVinszHQM4hzgIfOoy5Dvog1ytRGsIb4ZovuQB7nNKy5Uhgii6NYN4NL6UBprQroNCYX41q86hGFoPAGg2nxaFAixEAylQvq0rDLmCvq+JucAEIsj72LW5RZksiiZpCpAACREoWBCWBAsTLgATJB0FOHmZzmKwqBaDeQ5ar+qySYsXFmm4P7WEmn7ftq7DFmSzJJmoLYWO21BcfYpl8B4KJEuEkTxn67AUhA7CMpKigMoy7mecUgkWBgeawqxPHfIoADUihUnaZIRqCXKMpyXJMHAUAANZOHURLJeCxCYiaYDyAA7CyOQ5MoABCpJcp8RjXFiYBMYUcA1YlaL0I1ADq1mCQU8DmO0UyMtYrxBKg6blBxXnfMIeAovSLblIV5aRmq1ZWYUNn9XASJgGKqwAL6yIdgxKAAwvBwFdHwrAmPkKyIt0rB5Kg7AhLCIQ5n2rpbM6jC-bIYCHQAukAA")
@@ -116,8 +187,6 @@ cat(y$content)
 #> # Create Shiny app ----
 #> shinyApp(ui = ui, server = server)
 ```
-
-### Shinylive for Python
 
 ``` r
 x <- lzstring::decompressFromEncodedURIComponent("NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbDOAD1R04LFkw4xUxOmTERUAVzJ4mQiABM4dZfI4AdCPp0YuCsgH0WAGw4a6ACl2RHyxwDlnTAAzKAjJ+9MAEyeAJT64RAAAqq2GBR8ZPoaNExkCXYhiPpMOSpwZPJ0EEw0jhAAVIFioiAmihgQGUzlQQC+jvpgrQC6QA")
