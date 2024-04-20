@@ -16,13 +16,16 @@ decode_utf16_surrogate <- function(values) {
   }
   i <- 1
   while (i <= length(values)) {
-    if (values[i] < 0xD800 || values[i] > 0xDBFF) {  # Not a high surrogate
+    if (values[i] < 0xD800 ||
+      values[i] > 0xDBFF) {
+      # Not a high surrogate
       # Direct conversion for regular characters (like space)
       decoded_chars <- c(decoded_chars, intToUtf8(values[i]))
       i <- i + 1
     } else {
       # Decode surrogate pairs
-      decoded_chars <- c(decoded_chars, decode_surrogates(values[i], values[i + 1]))
+      decoded_chars <-
+        c(decoded_chars, decode_surrogates(values[i], values[i + 1]))
       i <- i + 2
     }
   }
@@ -32,8 +35,12 @@ decode_utf16_surrogate <- function(values) {
 
 safe_compress <- function(string, f) {
   string <- enc2utf8(string)
-  # Convert to UTF-16LE and ensure BOM is present (little-endian BOM: 0xFFFE)
-  string_utf16 <- iconv(string, from="UTF-8", to="UTF-16LE", toRaw=TRUE)[[1]]
+  string_utf16 <-
+    iconv(string,
+      from = "UTF-8",
+      to = "UTF-16LE",
+      toRaw = TRUE
+    )[[1]]
   bom_le <- charToRaw("\xFF\xFE")
   if (!identical(string_utf16[1:2], bom_le)) {
     string_utf16 <- c(bom_le, string_utf16)
@@ -46,8 +53,12 @@ safe_compress <- function(string, f) {
 
 safe_decompress <- function(string, f) {
   string <- enc2utf8(string)
-  # Convert to UTF-16LE and ensure BOM is present (little-endian BOM: 0xFFFE)
-  string_utf16 <- iconv(string, from="UTF-8", to="UTF-16LE", toRaw=TRUE)[[1]]
+  string_utf16 <-
+    iconv(string,
+      from = "UTF-8",
+      to = "UTF-16LE",
+      toRaw = TRUE
+    )[[1]]
   bom_le <- charToRaw("\xFF\xFE")
   if (!identical(string_utf16[1:2], bom_le)) {
     string_utf16 <- c(bom_le, string_utf16)
@@ -70,6 +81,10 @@ safe_decompress <- function(string, f) {
 #' compressToBase64("Hello, world!")
 #' }
 compressToBase64 <- function(string) {
+  stopifnot(
+    "`string` must be a character." = is.character(string),
+    "`string` must have length 1." = length(string) == 1
+  )
   safe_compress(string, compressToBase64_)
 }
 
@@ -85,6 +100,10 @@ compressToBase64 <- function(string) {
 #' decompressFromBase64(compressed_string)
 #' }
 decompressFromBase64 <- function(string) {
+  stopifnot(
+    "`string` must be a character." = is.character(string),
+    "`string` must have length 1." = length(string) == 1
+  )
   safe_decompress(string, decompressFromBase64_)
 }
 
@@ -100,6 +119,10 @@ decompressFromBase64 <- function(string) {
 #' compressToEncodedURIComponent("Hello, world!")
 #' }
 compressToEncodedURIComponent <- function(string) {
+  stopifnot(
+    "`string` must be a character." = is.character(string),
+    "`string` must have length 1." = length(string) == 1
+  )
   safe_compress(string, compressToEncodedURIComponent_)
 }
 
@@ -115,5 +138,9 @@ compressToEncodedURIComponent <- function(string) {
 #' decompressFromEncodedURIComponent(compressed_string)
 #' }
 decompressFromEncodedURIComponent <- function(string) {
+  stopifnot(
+    "`string` must be a character." = is.character(string),
+    "`string` must have length 1." = length(string) == 1
+  )
   safe_decompress(string, decompressFromEncodedURIComponent_)
 }
