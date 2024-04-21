@@ -68,7 +68,11 @@ cat(decompressed)
 ### JS code
 
 ```{r}
-js_code <- "function test() { console.log('Hello, World!'); }"
+js_code <- "
+function test() { 
+  console.log('Hello, World!'); 
+}
+"
 compressed = lzstring::compressToBase64(js_code)
 compressed
 

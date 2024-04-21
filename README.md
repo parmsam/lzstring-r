@@ -75,14 +75,21 @@ cat(decompressed)
 ### JS code
 
 ``` r
-js_code <- "function test() { console.log('Hello, World!'); }"
+js_code <- "
+function test() { 
+  console.log('Hello, World!'); 
+}
+"
 compressed = lzstring::compressToBase64(js_code)
 compressed
-#> [1] "GYVwdgxgLglg9mABFApgZygCgJSIN6IQJpwA2KAdKXAOaYDkAEiqdQDSIDqcATqQCYBCetgDciAL5A=="
+#> [1] "FAMwrgdgxgLglgewgAhgUwM4wBQEpkDeywyyUSGCANmgHRUIDm2A5ABJpUMA0yA6ggBOVACYBCFrgDcxAL7AgA=="
 
 decompressed = lzstring::decompressFromBase64(compressed)
 cat(decompressed)
-#> function test() { console.log('Hello, World!'); }
+#> 
+#> function test() { 
+#>   console.log('Hello, World!'); 
+#> }
 ```
 
 ### R code
