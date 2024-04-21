@@ -47,7 +47,7 @@ compressed = lzstring::compressToBase64(message)
 compressed
 
 decompressed = lzstring::decompressFromBase64(compressed)
-decompressed
+cat(decompressed)
 ```
 
 ### JSON data
@@ -61,19 +61,23 @@ compressed = lzstring::compressToBase64(json_string)
 compressed
 
 decompressed = lzstring::decompressFromBase64(compressed)
-decompressed
 identical(json_string, decompressed)
+cat(decompressed)
 ```
 
 ### JS code
 
 ```{r}
-js_code <- "function test() { console.log('Hello, World!'); }"
+js_code <- "
+function test() { 
+  console.log('Hello, World!'); 
+}
+"
 compressed = lzstring::compressToBase64(js_code)
 compressed
 
 decompressed = lzstring::decompressFromBase64(compressed)
-decompressed
+cat(decompressed)
 ```
 
 ### R code

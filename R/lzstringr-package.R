@@ -3,67 +3,72 @@
 ## usethis namespace: end
 NULL
 
-decode_utf16_surrogate <- function(values) {
-  # Initialize an empty character vector to store decoded characters
-  decoded_chars <- character()
-  # Function to decode surrogate pairs
-  decode_surrogates <- function(high, low) {
-    # Calculate the Unicode code point from surrogate values
-    # Formula: 0x10000 + (high - 0xD800) * 0x400 + (low - 0xDC00)
-    code_point <- 0x10000 + (high - 0xD800) * 0x400 + (low - 0xDC00)
-    # Convert the Unicode code point to a character
-    intToUtf8(code_point)
-  }
-  i <- 1
-  while (i <= length(values)) {
-    if (values[i] < 0xD800 ||
-      values[i] > 0xDBFF) {
-      # Not a high surrogate
-      # Direct conversion for regular characters (like space)
-      decoded_chars <- c(decoded_chars, intToUtf8(values[i]))
-      i <- i + 1
-    } else {
-      # Decode surrogate pairs
-      decoded_chars <-
-        c(decoded_chars, decode_surrogates(values[i], values[i + 1]))
-      i <- i + 2
-    }
-  }
-  # Combine into a single string
-  paste(decoded_chars, collapse = "")
-}
 
-safe_compress <- function(string, f) {
+# Helper function to convert string to UTF-16LE with BOM
+convert_to_utf16le <- function(string) {
   string <- enc2utf8(string)
-  string_utf16 <-
-    iconv(string,
-      from = "UTF-8",
-      to = "UTF-16LE",
-      toRaw = TRUE
-    )[[1]]
+  string_utf16 <- iconv(string, from = "UTF-8", to = "UTF-16LE", toRaw = TRUE)[[1]]
   bom_le <- charToRaw("\xFF\xFE")
   if (!identical(string_utf16[1:2], bom_le)) {
     string_utf16 <- c(bom_le, string_utf16)
   }
+  string_utf16
+}
+
+decode_utf16_surrogate <- function(values) {
+  # Estimate the maximum number of characters (since surrogate pairs condense to one character)
+  max_chars <- length(values)
+  decoded_chars <- character(max_chars)  # Pre-allocate with maximum possible size
+  index <- 1  # Index to keep track of position in decoded_chars
+
+  # Function to decode surrogate pairs
+  decode_surrogates <- function(high, low) {
+    code_point <- 0x10000 + (high - 0xD800) * 0x400 + (low - 0xDC00)
+    intToUtf8(code_point)
+  }
+
+  i <- 1
+  while (i <= length(values)) {
+    if (values[i] < 0xD800 || values[i] > 0xDBFF) {
+      # Not a high surrogate
+      decoded_chars[index] <- intToUtf8(values[i])
+      i <- i + 1
+    } else {
+      # Decode surrogate pairs
+      if (i + 1 > length(values)) {
+        stop("Malformed input: Surrogate high without a following low surrogate.")
+      }
+      decoded_chars[index] <- decode_surrogates(values[i], values[i + 1])
+      i <- i + 2
+    }
+    index <- index + 1
+  }
+
+  # Truncate the vector to the actual number of characters decoded
+  decoded_chars <- decoded_chars[1:(index - 1)]
+
+  # Combine into a single string
+  paste(decoded_chars, collapse = "")
+}
+
+
+safe_compress <- function(string, f) {
+  string_utf16 <- convert_to_utf16le(string)
   result <- f(string_utf16)
+  if (length(result) == 0) {
+    return("")
+  }
   chr_result <- rawToChar(as.raw(result))
   Encoding(chr_result) <- "UTF-8"
   chr_result
 }
 
 safe_decompress <- function(string, f) {
-  string <- enc2utf8(string)
-  string_utf16 <-
-    iconv(string,
-      from = "UTF-8",
-      to = "UTF-16LE",
-      toRaw = TRUE
-    )[[1]]
-  bom_le <- charToRaw("\xFF\xFE")
-  if (!identical(string_utf16[1:2], bom_le)) {
-    string_utf16 <- c(bom_le, string_utf16)
-  }
+  string_utf16 <- convert_to_utf16le(string)
   result <- f(string_utf16)
+  if (length(result) == 0) {
+    return("")
+  }
   chr_result <- decode_utf16_surrogate(result)
   Encoding(chr_result) <- "UTF-8"
   chr_result
