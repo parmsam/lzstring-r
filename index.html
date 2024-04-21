@@ -79,8 +79,8 @@
 <span><span class="co">#&gt; [1] "CoCwpgBAjgrglgYwNYQEYCcD2B3AdhAM0wA8IArGAWwAcBnCTANzHQgBdwIAbAQwC8AnhAAmmAOYBCIA"</span></span>
 <span></span>
 <span><span class="va">decompressed</span> <span class="op">=</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/decompressFromBase64.html">decompressFromBase64</a></span><span class="op">(</span><span class="va">compressed</span><span class="op">)</span></span>
-<span><span class="va">decompressed</span></span>
-<span><span class="co">#&gt; [1] "The quick brown fox jumps over the lazy dog!"</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">decompressed</span><span class="op">)</span></span>
+<span><span class="co">#&gt; The quick brown fox jumps over the lazy dog!</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="json-data">JSON data<a class="anchor" aria-label="anchor" href="#json-data"></a>
 </h3>
@@ -94,23 +94,30 @@
 <span><span class="co">#&gt; [1] "N4IgdghgtgpiBcBtEApA9gCzAAgCJrgF0AaECAcziQGYAGEkGKCASwBsFkArTMAOgAmBAAIwAHtAAObGHwDGaKCEIBfIA==="</span></span>
 <span></span>
 <span><span class="va">decompressed</span> <span class="op">=</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/decompressFromBase64.html">decompressFromBase64</a></span><span class="op">(</span><span class="va">compressed</span><span class="op">)</span></span>
-<span><span class="va">decompressed</span></span>
-<span><span class="co">#&gt; [1] "{\"name\":[\"John Doe\"],\"age\":[30],\"email\":[\"john.doe@example.com\"]}"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">json_string</span>, <span class="va">decompressed</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] FALSE</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] FALSE</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">decompressed</span><span class="op">)</span></span>
+<span><span class="co">#&gt; {"name":["John Doe"],"age":[30],"email":["john.doe@example.com"]}</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="js-code">JS code<a class="anchor" aria-label="anchor" href="#js-code"></a>
 </h3>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">js_code</span> <span class="op">&lt;-</span> <span class="st">"function test() { console.log('Hello, World!'); }"</span></span>
+<code class="sourceCode R"><span><span class="va">js_code</span> <span class="op">&lt;-</span> <span class="st">"</span></span>
+<span><span class="st">function test() { </span></span>
+<span><span class="st">  console.log('Hello, World!'); </span></span>
+<span><span class="st">}</span></span>
+<span><span class="st">"</span></span>
 <span><span class="va">compressed</span> <span class="op">=</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/compressToBase64.html">compressToBase64</a></span><span class="op">(</span><span class="va">js_code</span><span class="op">)</span></span>
 <span><span class="va">compressed</span></span>
-<span><span class="co">#&gt; [1] "GYVwdgxgLglg9mABFApgZygCgJSIN6IQJpwA2KAdKXAOaYDkAEiqdQDSIDqcATqQCYBCetgDciAL5A=="</span></span>
+<span><span class="co">#&gt; [1] "FAMwrgdgxgLglgewgAhgUwM4wBQEpkDeywyyUSGCANmgHRUIDm2A5ABJpUMA0yA6ggBOVACYBCFrgDcxAL7AgA=="</span></span>
 <span></span>
 <span><span class="va">decompressed</span> <span class="op">=</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/decompressFromBase64.html">decompressFromBase64</a></span><span class="op">(</span><span class="va">compressed</span><span class="op">)</span></span>
-<span><span class="va">decompressed</span></span>
-<span><span class="co">#&gt; [1] "function test() { console.log('Hello, World!'); }"</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">decompressed</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; function test() { </span></span>
+<span><span class="co">#&gt;   console.log('Hello, World!'); </span></span>
+<span><span class="co">#&gt; }</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="r-code">R code<a class="anchor" aria-label="anchor" href="#r-code"></a>
