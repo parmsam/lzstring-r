@@ -1,0 +1,66 @@
+---
+title: "Benchmarking performance"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{performance}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options:
+  chunk_output_type: console
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(lzstring)
+library(bench)
+library(ggplot2)
+```
+
+Let's benchmark use of lzstring for compression to base 64 and decompression from base 64. We will generate random strings of different lengths and measure the time taken for compression and decompression.
+
+```{r benchmark}
+# Function to generate a random string of specified length
+generate_random_string <- function(length) {
+  paste(sample(c(LETTERS, 0:9), size = length, replace = TRUE), collapse = "")
+}
+
+# Prepare a data frame to store benchmark results
+benchmark_results <- data.frame(length_str = numeric(), comp_time = numeric(), decomp_time = numeric())
+
+# Run benchmark for each string length
+for (i in 1:100) {
+  big_str <- generate_random_string(i * 100)
+
+  comp <- mark(
+    compressToBase64(big_str)
+  )
+  decomp <- mark(
+    decompressFromBase64(comp$result[[1]])
+  )
+  decomp_time_tmp <- as.numeric(decomp$median)
+  comp_time_tmp <- as.numeric(comp$median)
+  # Store the median time and string length
+  benchmark_results <- rbind(benchmark_results, data.frame(length_str = nchar(big_str), comp_time = comp_time_tmp, decomp_time = decomp_time_tmp))
+}
+# Convert time to milliseconds
+benchmark_results$comp_time <- benchmark_results$comp_time * 1000
+benchmark_results$decomp_time <- benchmark_results$decomp_time * 1000
+```
+
+Now let's plot the results for compression and decompression times of all those strings we created.
+
+```{r plot-results, fig.width = 7, fig.asp = 0.6}
+ggplot(benchmark_results) +
+  geom_line(aes(x = length_str, y = comp_time, col = "Compression"), ) +
+  geom_line(aes(x = length_str, y = decomp_time, col = "Decompression")) +
+  labs(x = "String length (characters)",
+       y = "Time (milliseconds)") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
