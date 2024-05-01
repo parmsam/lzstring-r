@@ -82,9 +82,7 @@ safe_decompress <- function(string, f) {
 #' @return A character string representing the compressed input string in Base64 format.
 #' @export
 #' @examples
-#' \dontrun{
 #' compressToBase64("Hello, world!")
-#' }
 compressToBase64 <- function(string) {
   stopifnot(
     "`string` must be a character." = is.character(string),
@@ -101,9 +99,8 @@ compressToBase64 <- function(string) {
 #' @return A character string representing the decompressed input string.
 #' @export
 #' @examples
-#' \dontrun{
-#' decompressFromBase64(compressed_string)
-#' }
+#' x <- compressToBase64("Hello, world!")
+#' decompressFromBase64(x)
 decompressFromBase64 <- function(string) {
   stopifnot(
     "`string` must be a character." = is.character(string),
@@ -120,9 +117,7 @@ decompressFromBase64 <- function(string) {
 #' @return A character string representing the compressed input string in Encoded URI Component format.
 #' @export
 #' @examples
-#' \dontrun{
 #' compressToEncodedURIComponent("Hello, world!")
-#' }
 compressToEncodedURIComponent <- function(string) {
   stopifnot(
     "`string` must be a character." = is.character(string),
@@ -139,9 +134,8 @@ compressToEncodedURIComponent <- function(string) {
 #' @return A character string representing the decompressed input string.
 #' @export
 #' @examples
-#' \dontrun{
-#' decompressFromEncodedURIComponent(compressed_string)
-#' }
+#' x <- compressToEncodedURIComponent("Hello, world!")
+#' decompressFromEncodedURIComponent(x)
 decompressFromEncodedURIComponent <- function(string) {
   stopifnot(
     "`string` must be a character." = is.character(string),

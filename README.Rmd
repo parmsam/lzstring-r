@@ -26,6 +26,12 @@ The goal of lzstring-r is to provide an R wrapper for the [lzstring C++ library]
 
 ## Installation
 
+You can install the released version of lzstringr from CRAN with:
+
+``` r
+install.packages("lzstringr")
+```
+
 You can install the development version of lzstringr from [GitHub](https://github.com/) with:
 
 ``` r

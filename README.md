@@ -27,6 +27,12 @@ lzstring in JavaScript—peek at his work over
 
 ## Installation
 
+You can install the released version of lzstringr from CRAN with:
+
+``` r
+install.packages("lzstringr")
+```
+
 You can install the development version of lzstringr from
 [GitHub](https://github.com/) with:
 

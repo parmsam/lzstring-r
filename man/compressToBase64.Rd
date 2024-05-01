@@ -16,7 +16,5 @@ A character string representing the compressed input string in Base64 format.
 This function takes a string as input and returns a compressed version of the string in Base64 format.
 }
 \examples{
-\dontrun{
 compressToBase64("Hello, world!")
-}
 }
