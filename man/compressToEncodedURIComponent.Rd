@@ -16,7 +16,5 @@ A character string representing the compressed input string in Encoded URI Compo
 This function takes a string as input and returns a compressed version of the string in Encoded URI Component format.
 }
 \examples{
-\dontrun{
 compressToEncodedURIComponent("Hello, world!")
-}
 }

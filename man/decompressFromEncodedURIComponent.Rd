@@ -16,7 +16,6 @@ A character string representing the decompressed input string.
 This function takes a compressed string in Encoded URI Component format as input and returns the decompressed version of the string.
 }
 \examples{
-\dontrun{
-decompressFromEncodedURIComponent(compressed_string)
-}
+x <- compressToEncodedURIComponent("Hello, world!")
+decompressFromEncodedURIComponent(x)
 }

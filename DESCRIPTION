@@ -1,13 +1,9 @@
 Package: lzstring
 Type: Package
-Title: An R wrapper of lzstring C++ library
+Title: Wrapper for 'lz-string' C++ Library
 Version: 0.1.0
-Author: Sam Parmar
-Maintainer: Sam Parmar <parmartsam@gmail.com>
-Description: R interface to the lz-string C++ library, enabling LZ-based 
-    compression and decompression of strings directly within R. Useful for
-    reducing the memory footprint of large strings or transmitting 
-    compressed data.
+Description: Provide access to  the 'lz-string' C++ library for LZ-based 
+    compression and decompression of strings.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -16,13 +12,13 @@ LinkingTo:
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 URL: https://parmsam.github.io/lzstring-r/, https://github.com/parmsam/lzstring-r
 Authors@R: c(
     person(
         given = "Sam", 
         family = "Parmar",
-        role = c("aut", "cre")
+        role = c("aut", "cre"),
         email = "parmartsam@gmail.com"
     ),
     person(
