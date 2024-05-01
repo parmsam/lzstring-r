@@ -1,7 +1,7 @@
 Package: lzstring
 Type: Package
 Title: Wrapper for 'lz-string' C++ Library
-Version: 0.1.0
+Version: 0.1.1
 Description: Provide access to  the 'lz-string' C++ library for LZ-based 
     compression and decompression of strings.
 License: MIT + file LICENSE
