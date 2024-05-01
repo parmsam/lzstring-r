@@ -27,10 +27,19 @@
     <a class="dropdown-item" href="../articles/performance.html">Performance</a>
   </div>
 </li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
+</li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
-      <ul class="navbar-nav"></ul></div>
+      <ul class="navbar-nav"><li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/parmsam/lzstring-r/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div>
 
     
   </div>
@@ -38,7 +47,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Decompress a string from Encoded URI Component</h1>
-      
+      <small class="dont-index">Source: <a href="https://github.com/parmsam/lzstring-r/blob/HEAD/R/lzstringr-package.R" class="external-link"><code>R/lzstringr-package.R</code></a></small>
       <div class="d-none name"><code>decompressFromEncodedURIComponent.Rd</code></div>
     </div>
 
@@ -66,9 +75,9 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="fu">decompressFromEncodedURIComponent</span><span class="op">(</span><span class="va">compressed_string</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="compressToEncodedURIComponent.html">compressToEncodedURIComponent</a></span><span class="op">(</span><span class="st">"Hello, world!"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">decompressFromEncodedURIComponent</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Hello, world!"</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
