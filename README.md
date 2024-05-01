@@ -30,7 +30,7 @@ lzstring in JavaScript—peek at his work over
 You can install the released version of lzstringr from CRAN with:
 
 ``` r
-install.packages("lzstringr")
+install.packages("lzstring")
 ```
 
 You can install the development version of lzstringr from
