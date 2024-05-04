@@ -1,9 +1,10 @@
 Package: lzstring
 Type: Package
-Title: Wrapper for 'lz-string' C++ Library
+Title: Wrapper for 'lz-string' 'C++' Library
 Version: 0.1.2
-Description: Provide access to  the 'lz-string' C++ library for LZ-based 
-    compression and decompression of strings.
+Description: Provide access to  the 'lz-string' 
+    <http://pieroxy.net/blog/pages/lz-string/index.html> 'C++' library for 
+    Lempel-Ziv (LZ) based compression and decompression of strings.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
