@@ -1,3 +1,5 @@
+# lzstring (development version)
+
 # lzstring 0.1.2
 
 # lzstring 0.1.1
