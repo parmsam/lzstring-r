@@ -8,7 +8,7 @@ NULL
 convert_to_utf16le <- function(string) {
   string <- enc2utf8(string)
   string_utf16 <- iconv(string, from = "UTF-8", to = "UTF-16LE", toRaw = TRUE)[[1]]
-  bom_le <- charToRaw("\xFF\xFE")
+  bom_le <- as.raw(c(0xFF, 0xFE))
   if (!identical(string_utf16[1:2], bom_le)) {
     string_utf16 <- c(bom_le, string_utf16)
   }
