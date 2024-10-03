@@ -12,6 +12,8 @@ LinkingTo:
     cpp11
 Suggests: 
     testthat (>= 3.0.0)
+    ggplot2
+    bench
 Config/testthat/edition: 3
 RoxygenNote: 7.3.1
 URL: https://parmsam.github.io/lzstring-r/, https://github.com/parmsam/lzstring-r
