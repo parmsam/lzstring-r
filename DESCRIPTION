@@ -27,5 +27,11 @@ Authors@R: c(
         family = "Krasnov", 
         role = "cph",
         comment = "Author of included lz-string C++ library"
+    ),
+    person(
+        given = "Pawel",
+        family = "Rucki",
+        role = c("ctb"),
+        email = "pawel.rucki@roche.com"
     ))
 BugReports: https://github.com/parmsam/lzstring-r/issues
