@@ -6,6 +6,13 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/parmsam/lzstring-r/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/parmsam/lzstring-r/actions/workflows/R-CMD-check.yaml)
+[![Test
+coverage](https://github.com/parmsam/lzstring-r/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/parmsam/lzstring-r/actions/workflows/test-coverage.yaml)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/lzstring)](https://CRAN.R-project.org/package=lzstring)
+[![Metacran
+downloads](https://cranlogs.r-pkg.org/badges/lzstring)](https://cran.r-project.org/package=lzstring)
+
 <!-- badges: end -->
 
 The goal of lzstring-r is to provide an R wrapper for the [lzstring C++
