@@ -10,8 +10,10 @@
 coverage](https://github.com/parmsam/lzstring-r/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/parmsam/lzstring-r/actions/workflows/test-coverage.yaml)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/lzstring)](https://CRAN.R-project.org/package=lzstring)
-[![Metacran
+[![Monthly metacran
 downloads](https://cranlogs.r-pkg.org/badges/lzstring)](https://cran.r-project.org/package=lzstring)
+[![Total metacran
+downloads](https://cranlogs.r-pkg.org/badges/grand-total/lzstring)](https://cran.r-project.org/package=lzstring)
 
 <!-- badges: end -->
 
