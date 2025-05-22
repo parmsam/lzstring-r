@@ -57,58 +57,79 @@
 </h1></div>
 <!-- badges: start -->
 
-<!-- badges: end -->
-<p>The goal of lzstring-r is to provide an R wrapper for the <a href="https://github.com/andykras/lz-string-cpp" class="external-link">lzstring C++ library</a>. <a href="https://github.com/pieroxy/lz-string" class="external-link">lzstring</a> is originally a JavaScript library that provides fast and efficient string compression and decompression using a <a href="https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Welch" class="external-link">LZ-based algorithm</a>. Credit goes to <a href="https://github.com/wch" class="external-link">Winston Chang</a> for spotting this missing R package and guiding me over at the R Shinylive repo—check out his awesome contributions which this repo is based on <a href="https://github.com/posit-dev/r-shinylive/issues/70" class="external-link">here</a> and <a href="https://github.com/posit-dev/r-shinylive/pull/71" class="external-link">here</a>. Also, shoutout to Andy Kras for his implementation in C++ of lzstring, which you can find right <a href="https://github.com/andykras/lz-string-cpp" class="external-link">here</a>, and <a href="https://github.com/pieroxy" class="external-link">pieroxy</a>, the original brain behind lzstring in JavaScript—peek at his work over <a href="https://github.com/pieroxy/lz-string" class="external-link">here</a>.</p>
+<p>The goal of <strong>lzstring-r</strong> is to provide an R wrapper for the <a href="https://github.com/andykras/lz-string-cpp" class="external-link">lzstring C++ library</a>. <a href="https://github.com/pieroxy/lz-string" class="external-link">lzstring</a> is originally a JavaScript library that provides fast and efficient string compression and decompression using a <a href="https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Welch" class="external-link">LZ-based algorithm</a>.</p>
+<p>Credit goes to <a href="https://github.com/wch" class="external-link">Winston Chang</a> for spotting this missing R package and guiding me over at the R Shinylive repo—check out his awesome contributions which this repo is based on <a href="https://github.com/posit-dev/r-shinylive/issues/70" class="external-link">here</a> and <a href="https://github.com/posit-dev/r-shinylive/pull/71" class="external-link">here</a>. Also, shoutout to Andy Kras for his implementation in C++ of lzstring, which you can find right <a href="https://github.com/andykras/lz-string-cpp" class="external-link">here</a>, and <a href="https://github.com/pieroxy" class="external-link">pieroxy</a>, the original brain behind lzstring in JavaScript—peek at his work over <a href="https://github.com/pieroxy/lz-string" class="external-link">here</a>.</p>
+<hr>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the released version of lzstringr from <a href="https://CRAN.R-project.org/package=lzstring" class="external-link">CRAN</a> with:</p>
+<p>You can install the released version of lzstring from <a href="https://CRAN.R-project.org/package=lzstring" class="external-link">CRAN</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"lzstring"</span><span class="op">)</span></span></code></pre></div>
-<p>You can install the development version of lzstringr from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<p>Or the development version from <a href="https://github.com/parmsam/lzstring-r" class="external-link">GitHub</a>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"parmsam/lzstring-r"</span><span class="op">)</span></span></code></pre></div>
+<hr>
 </div>
 <div class="section level2">
-<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
-<p>This is a basic example which shows you how to solve a common problem:</p>
+<div class="section level3">
+<h3 id="basic-example">Basic Example<a class="anchor" aria-label="anchor" href="#basic-example"></a>
+</h3>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://parmsam.github.io/lzstring-r/">lzstring</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># text data</span></span>
-<span><span class="va">message</span> <span class="op">=</span> <span class="st">"The quick brown fox jumps over the lazy dog!"</span>;</span>
-<span></span>
-<span><span class="va">compressed</span> <span class="op">=</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/compressToBase64.html">compressToBase64</a></span><span class="op">(</span><span class="va">message</span><span class="op">)</span></span>
+<span><span class="co"># Text data</span></span>
+<span><span class="va">message</span> <span class="op">&lt;-</span> <span class="st">"The quick brown fox jumps over the lazy dog!"</span></span>
+<span><span class="va">compressed</span> <span class="op">&lt;-</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/compressToBase64.html">compressToBase64</a></span><span class="op">(</span><span class="va">message</span><span class="op">)</span></span>
 <span><span class="va">compressed</span></span>
 <span><span class="co">#&gt; [1] "CoCwpgBAjgrglgYwNYQEYCcD2B3AdhAM0wA8IArGAWwAcBnCTANzHQgBdwIAbAQwC8AnhAAmmAOYBCIA"</span></span>
 <span></span>
-<span><span class="va">decompressed</span> <span class="op">=</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/decompressFromBase64.html">decompressFromBase64</a></span><span class="op">(</span><span class="va">compressed</span><span class="op">)</span></span>
+<span><span class="va">decompressed</span> <span class="op">&lt;-</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/decompressFromBase64.html">decompressFromBase64</a></span><span class="op">(</span><span class="va">compressed</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">decompressed</span><span class="op">)</span></span>
 <span><span class="co">#&gt; The quick brown fox jumps over the lazy dog!</span></span></code></pre></div>
+<hr>
+</div>
 <div class="section level3">
-<h3 id="json-data">JSON data<a class="anchor" aria-label="anchor" href="#json-data"></a>
+<h3 id="compressing-and-decompressing-json">Compressing and Decompressing JSON<a class="anchor" aria-label="anchor" href="#compressing-and-decompressing-json"></a>
 </h3>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># JSON data</span></span>
-<span><span class="va">json_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"John Doe"</span>, age <span class="op">=</span> <span class="fl">30</span>, email <span class="op">=</span> <span class="st">"john.doe@example.com"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">json_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"John Doe"</span>, age <span class="op">=</span> <span class="fl">30</span>, email <span class="op">=</span> <span class="st">"john.doe@example.com"</span><span class="op">)</span></span>
 <span><span class="va">json_string</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://jeroen.r-universe.dev/jsonlite/reference/fromJSON.html" class="external-link">toJSON</a></span><span class="op">(</span><span class="va">json_data</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">compressed</span> <span class="op">=</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/compressToBase64.html">compressToBase64</a></span><span class="op">(</span><span class="va">json_string</span><span class="op">)</span></span>
+<span><span class="va">compressed</span> <span class="op">&lt;-</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/compressToBase64.html">compressToBase64</a></span><span class="op">(</span><span class="va">json_string</span><span class="op">)</span></span>
 <span><span class="va">compressed</span></span>
 <span><span class="co">#&gt; [1] "N4IgdghgtgpiBcBtEApA9gCzAAgCJrgF0AaECAcziQGYAGEkGKCASwBsFkArTMAOgAmBAAIwAHtAAObGHwDGaKCEIBfIA==="</span></span>
 <span></span>
-<span><span class="va">decompressed</span> <span class="op">=</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/decompressFromBase64.html">decompressFromBase64</a></span><span class="op">(</span><span class="va">compressed</span><span class="op">)</span></span>
+<span><span class="va">decompressed</span> <span class="op">&lt;-</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/decompressFromBase64.html">decompressFromBase64</a></span><span class="op">(</span><span class="va">compressed</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">json_string</span>, <span class="va">decompressed</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] FALSE</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">decompressed</span><span class="op">)</span></span>
 <span><span class="co">#&gt; {"name":["John Doe"],"age":[30],"email":["john.doe@example.com"]}</span></span></code></pre></div>
+<hr>
 </div>
 <div class="section level3">
-<h3 id="r-code">R code<a class="anchor" aria-label="anchor" href="#r-code"></a>
+<h3 id="round-trip-for-complex-r-objects">Round-Trip for Complex R Objects<a class="anchor" aria-label="anchor" href="#round-trip-for-complex-r-objects"></a>
 </h3>
+<blockquote>
+<p><strong>Note:</strong> Always serialize complex R objects (lists, data frames, etc.) to JSON before compressing. After decompression, deserialize back to R.</p>
+</blockquote>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span>, b <span class="op">=</span> <span class="st">"text"</span>, c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">json</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://jeroen.r-universe.dev/jsonlite/reference/serializeJSON.html" class="external-link">serializeJSON</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span>
+<span><span class="va">lz</span> <span class="op">&lt;-</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/compressToBase64.html">compressToBase64</a></span><span class="op">(</span><span class="va">json</span><span class="op">)</span></span>
+<span><span class="va">json2</span> <span class="op">&lt;-</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/decompressFromBase64.html">decompressFromBase64</a></span><span class="op">(</span><span class="va">lz</span><span class="op">)</span></span>
+<span><span class="va">obj2</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://jeroen.r-universe.dev/jsonlite/reference/serializeJSON.html" class="external-link">unserializeJSON</a></span><span class="op">(</span><span class="va">json2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">obj</span>, <span class="va">obj2</span><span class="op">)</span> <span class="co"># TRUE</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
+<hr>
+</div>
+<div class="section level3">
+<h3 id="r-code-example">R Code Example<a class="anchor" aria-label="anchor" href="#r-code-example"></a>
+</h3>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">r_code</span> <span class="op">&lt;-</span> <span class="st">'</span></span>
 <span><span class="st">library(dplyr)</span></span>
 <span><span class="st"></span></span>
@@ -124,10 +145,10 @@
 <span><span class="st"># Add a new column with updated salary</span></span>
 <span><span class="st">data &lt;- mutate(data, updated_salary = salary * 1.05)</span></span>
 <span><span class="st">'</span></span>
-<span><span class="va">compressed</span> <span class="op">=</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/compressToBase64.html">compressToBase64</a></span><span class="op">(</span><span class="va">r_code</span><span class="op">)</span></span>
+<span><span class="va">compressed</span> <span class="op">&lt;-</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/compressToBase64.html">compressToBase64</a></span><span class="op">(</span><span class="va">r_code</span><span class="op">)</span></span>
 <span><span class="va">compressed</span></span>
 <span><span class="co">#&gt; [1] "FAGwlgRgTghlCeAKAJgBxPKBKYxkwBcYACAHgFpj8iA6AM1gFsBTRYY4gOxheIF5iAY0QAiAFIB7ABacRAGmLiYnZvMViYAa1VY57YjADmzfkMQAmABwLz5hQGZzu/QGcYIOPFPCArAAYAvwUANkCg4h9/AJwcYABiYgAxMBACZigqQhI6CQyjE0MoZkJ04gIpZWJzH2A6FLSi5AB9ahIKYjrU9JQshXziAD4qn1iEgEFkZAMuZgB3IQkQAFdGTmJZsHLiJdRqZim3DwQ8LLJKRiWiNJ6iBR295sPPUyeEYgAqYgBGGj8R4CAA=="</span></span>
-<span><span class="va">decompose</span> <span class="op">=</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/decompressFromBase64.html">decompressFromBase64</a></span><span class="op">(</span><span class="va">compressed</span><span class="op">)</span></span>
+<span><span class="va">decompose</span> <span class="op">&lt;-</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/decompressFromBase64.html">decompressFromBase64</a></span><span class="op">(</span><span class="va">compressed</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">decompose</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; library(dplyr)</span></span>
@@ -143,11 +164,12 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; # Add a new column with updated salary</span></span>
 <span><span class="co">#&gt; data &lt;- mutate(data, updated_salary = salary * 1.05)</span></span></code></pre></div>
+<hr>
 </div>
 <div class="section level3">
 <h3 id="compress-shinylive-hashes">Compress Shinylive Hashes<a class="anchor" aria-label="anchor" href="#compress-shinylive-hashes"></a>
 </h3>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">code</span> <span class="op">&lt;-</span> <span class="st">'library(shiny)</span></span>
 <span><span class="st">ui &lt;- fluidPage(</span></span>
 <span><span class="st">  "Hello, world!"</span></span>
@@ -167,7 +189,7 @@
 <div class="section level3">
 <h3 id="decompress-shinylive-hashes">Decompress Shinylive Hashes<a class="anchor" aria-label="anchor" href="#decompress-shinylive-hashes"></a>
 </h3>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/decompressFromEncodedURIComponent.html">decompressFromEncodedURIComponent</a></span><span class="op">(</span><span class="st">"NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbDOAD1R04LFkw4xUxOmTERUAVzJ4mQiABM4dZfI4AdCPp0YuCsgH0WAGw4a6ACl2RHyxwDlnTAAzKAjJ+9MAEyeAJT64RAAAqq2GBR8ZPoaNExkCXYhiPpMOSpwZPJ0EEw0jhAAVIFioiAmihgQGUzlQQC+jvpgrQC6QA"</span><span class="op">)</span></span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://jeroen.r-universe.dev/jsonlite/reference/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">y</span><span class="op">$</span><span class="va">name</span><span class="op">)</span></span>
@@ -181,7 +203,56 @@
 <span><span class="co">#&gt; @render.text</span></span>
 <span><span class="co">#&gt; def txt():</span></span>
 <span><span class="co">#&gt;     return f"n*2 is {input.n() * 2}"</span></span></code></pre></div>
+<hr>
 </div>
+</div>
+<div class="section level2">
+<h2 id="encoding-and-limitations">Encoding and Limitations<a class="anchor" aria-label="anchor" href="#encoding-and-limitations"></a>
+</h2>
+<blockquote>
+<p><strong>Important:</strong><br>
+- lzstring operates on strings. For non-string or binary data, encode as JSON or base64 first.<br>
+- Always ensure your input is UTF-8 encoded.<br>
+- If you compress an R object directly (without serialization), the result may not decompress as expected.</p>
+</blockquote>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="troubleshooting">Troubleshooting<a class="anchor" aria-label="anchor" href="#troubleshooting"></a>
+</h2>
+<ul>
+<li><p><strong>Why do I get an empty string after decompressing?</strong><br>
+This may happen if the input was not properly encoded, or if the compressed string is corrupted.</p></li>
+<li><p><strong>Why does my decompressed JSON fail to parse?</strong><br>
+Ensure you serialize your R object to JSON (or use <code>serializeJSON</code>) before compressing.</p></li>
+<li><p><strong>Can I compress binary data?</strong><br>
+Encode it as base64 or hex first, then compress the resulting string.</p></li>
+</ul>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="use-cases">Use Cases<a class="anchor" aria-label="anchor" href="#use-cases"></a>
+</h2>
+<ul>
+<li>Sharing Shiny app code via URL (see <a href="https://shinylive.io/r/app/" class="external-link">Shinylive</a>)</li>
+<li>Compact storage of large JSON blobs</li>
+<li>Embedding compressed data in web apps</li>
+<li>
+<strong>Automatic Shinylive links in documentation:</strong><br>
+The <a href="https://github.com/insightsengineering/roxy.shinylive" class="external-link">roxy.shinylive</a> package uses lzstring to provide a <a href="https://roxygen2.r-lib.org/" class="external-link">roxygen2</a> extension that automatically takes the code from the <code>@examples</code> tag and creates a URL to the <a href="https://shinylive.io/r/app/" class="external-link">shinylive.io</a> service. During documentation build, a new section is added to the function manual containing the link and an iframe to the application itself.</li>
+</ul>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<ul>
+<li><a href="https://github.com/pieroxy/lz-string" class="external-link">lz-string JavaScript library (pieroxy)</a></li>
+<li><a href="https://github.com/andykras/lz-string-cpp" class="external-link">lz-string C++ port (Andy Kras)</a></li>
+<li><a href="https://github.com/posit-dev/r-shinylive" class="external-link">Shinylive for R</a></li>
+<li><a href="https://github.com/insightsengineering/roxy.shinylive" class="external-link">roxy.shinylive</a></li>
+</ul>
+<hr>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
