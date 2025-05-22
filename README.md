@@ -88,26 +88,6 @@ cat(decompressed)
 #> {"name":["John Doe"],"age":[30],"email":["john.doe@example.com"]}
 ```
 
-### JS code
-
-``` r
-js_code <- "
-function test() { 
-  console.log('Hello, World!'); 
-}
-"
-compressed = lzstring::compressToBase64(js_code)
-compressed
-#> [1] "FAMwrgdgxgLglgewgAhgUwM4wBQEpkDeywyyUSGCANmgHRUIDm2A5ABJpUMA0yA6ggBOVACYBCFrgDcxAL7AgA=="
-
-decompressed = lzstring::decompressFromBase64(compressed)
-cat(decompressed)
-#> 
-#> function test() { 
-#>   console.log('Hello, World!'); 
-#> }
-```
-
 ### R code
 
 ``` r
@@ -145,6 +125,26 @@ cat(decompose)
 #> 
 #> # Add a new column with updated salary
 #> data <- mutate(data, updated_salary = salary * 1.05)
+```
+
+### Compress Shinylive Hashes
+
+``` r
+code <- 'library(shiny)
+ui <- fluidPage(
+  "Hello, world!"
+)
+server <- function(input, output, session) {
+}
+shinyApp(ui, server)'
+files <- list(
+  name = jsonlite::unbox("app.R"),
+  content = jsonlite::unbox(code)
+)
+files_json <- jsonlite::toJSON(list(files))
+files_lz <- lzstring::compressToEncodedURIComponent(as.character(files_json))
+cat(paste0("https://shinylive.io/r/app/#code=", files_lz))
+#> https://shinylive.io/r/app/#code=NobwRAdghgtgpmAXGKAHVA6ASmANGAYwHsIAXOMpMAGwEsAjAJykYE8AKAZwAtaJWAlAB0IAV1oACADwBaCQDNq4gCYAFKAHM47ERIlCwACTjVqRXBIDuRRtWUBCAyOEROcRgDd30ufNEQCUloSdj5UUVILIgjwyIk3Tk5giAEJEBEAXxEePlYAQXR2cQs3T3cBMAyAXSA
 ```
 
 ### Decompress Shinylive Hashes
