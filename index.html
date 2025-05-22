@@ -213,12 +213,13 @@
 <div class="section level2">
 <h2 id="encoding-and-limitations">Encoding and Limitations<a class="anchor" aria-label="anchor" href="#encoding-and-limitations"></a>
 </h2>
-<blockquote>
-<p><strong>Important:</strong><br>
-- lzstring operates on strings. For non-string or binary data, encode as JSON or base64 first.<br>
-- Always ensure your input is UTF-8 encoded.<br>
-- If you compress an R object directly (without serialization), the result may not decompress as expected.</p>
-</blockquote>
+<ul>
+<li>lzstring operates on strings. For non-string or binary data, encode as JSON or base64 first.<br>
+</li>
+<li>Always ensure your input is UTF-8 encoded.<br>
+</li>
+<li>If you compress an R object directly (without serialization), the result may not decompress as expected.</li>
+</ul>
 <hr>
 </div>
 <div class="section level2">
