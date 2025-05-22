@@ -14,18 +14,18 @@ status](https://www.r-pkg.org/badges/version/lzstring)](https://CRAN.R-project.o
 downloads](https://cranlogs.r-pkg.org/badges/lzstring)](https://cran.r-project.org/package=lzstring)
 [![Total metacran
 downloads](https://cranlogs.r-pkg.org/badges/grand-total/lzstring)](https://cran.r-project.org/package=lzstring)
-
 <!-- badges: end -->
 
-The goal of lzstring-r is to provide an R wrapper for the [lzstring C++
-library](https://github.com/andykras/lz-string-cpp).
+The goal of **lzstring-r** is to provide an R wrapper for the [lzstring
+C++ library](https://github.com/andykras/lz-string-cpp).
 [lzstring](https://github.com/pieroxy/lz-string) is originally a
 JavaScript library that provides fast and efficient string compression
 and decompression using a [LZ-based
-algorithm](https://en.wikipedia.org/wiki/Lempel–Ziv–Welch). Credit goes
-to [Winston Chang](https://github.com/wch) for spotting this missing R
-package and guiding me over at the R Shinylive repo—check out his
-awesome contributions which this repo is based on
+algorithm](https://en.wikipedia.org/wiki/Lempel–Ziv–Welch).
+
+Credit goes to [Winston Chang](https://github.com/wch) for spotting this
+missing R package and guiding me over at the R Shinylive repo—check out
+his awesome contributions which this repo is based on
 [here](https://github.com/posit-dev/r-shinylive/issues/70) and
 [here](https://github.com/posit-dev/r-shinylive/pull/71). Also, shoutout
 to Andy Kras for his implementation in C++ of lzstring, which you can
@@ -34,61 +34,85 @@ find right [here](https://github.com/andykras/lz-string-cpp), and
 lzstring in JavaScript—peek at his work over
 [here](https://github.com/pieroxy/lz-string).
 
+------------------------------------------------------------------------
+
 ## Installation
 
-You can install the released version of lzstringr from
+You can install the released version of lzstring from
 [CRAN](https://CRAN.R-project.org/package=lzstring) with:
 
 ``` r
 install.packages("lzstring")
 ```
 
-You can install the development version of lzstringr from
-[GitHub](https://github.com/) with:
+Or the development version from
+[GitHub](https://github.com/parmsam/lzstring-r):
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("parmsam/lzstring-r")
 ```
 
-## Example
+------------------------------------------------------------------------
 
-This is a basic example which shows you how to solve a common problem:
+## Usage
+
+### Basic Example
 
 ``` r
 library(lzstring)
 
-# text data
-message = "The quick brown fox jumps over the lazy dog!";
-
-compressed = lzstring::compressToBase64(message)
+# Text data
+message <- "The quick brown fox jumps over the lazy dog!"
+compressed <- lzstring::compressToBase64(message)
 compressed
 #> [1] "CoCwpgBAjgrglgYwNYQEYCcD2B3AdhAM0wA8IArGAWwAcBnCTANzHQgBdwIAbAQwC8AnhAAmmAOYBCIA"
 
-decompressed = lzstring::decompressFromBase64(compressed)
+decompressed <- lzstring::decompressFromBase64(compressed)
 cat(decompressed)
 #> The quick brown fox jumps over the lazy dog!
 ```
 
-### JSON data
+------------------------------------------------------------------------
+
+### Compressing and Decompressing JSON
 
 ``` r
-# JSON data
 json_data <- list(name = "John Doe", age = 30, email = "john.doe@example.com")
 json_string <- jsonlite::toJSON(json_data)
 
-compressed = lzstring::compressToBase64(json_string)
+compressed <- lzstring::compressToBase64(json_string)
 compressed
 #> [1] "N4IgdghgtgpiBcBtEApA9gCzAAgCJrgF0AaECAcziQGYAGEkGKCASwBsFkArTMAOgAmBAAIwAHtAAObGHwDGaKCEIBfIA==="
 
-decompressed = lzstring::decompressFromBase64(compressed)
+decompressed <- lzstring::decompressFromBase64(compressed)
 identical(json_string, decompressed)
 #> [1] FALSE
 cat(decompressed)
 #> {"name":["John Doe"],"age":[30],"email":["john.doe@example.com"]}
 ```
 
-### R code
+------------------------------------------------------------------------
+
+### Round-Trip for Complex R Objects
+
+> **Note:** Always serialize complex R objects (lists, data frames,
+> etc.) to JSON before compressing. After decompression, deserialize
+> back to R.
+
+``` r
+obj <- list(a = 1, b = "text", c = list(x = 1:3))
+json <- jsonlite::serializeJSON(obj)
+lz <- lzstring::compressToBase64(json)
+json2 <- lzstring::decompressFromBase64(lz)
+obj2 <- jsonlite::unserializeJSON(json2)
+identical(obj, obj2) # TRUE
+#> [1] TRUE
+```
+
+------------------------------------------------------------------------
+
+### R Code Example
 
 ``` r
 r_code <- '
@@ -106,10 +130,10 @@ filtered_data <- filter(data, age > 25)
 # Add a new column with updated salary
 data <- mutate(data, updated_salary = salary * 1.05)
 '
-compressed = lzstring::compressToBase64(r_code)
+compressed <- lzstring::compressToBase64(r_code)
 compressed
 #> [1] "FAGwlgRgTghlCeAKAJgBxPKBKYxkwBcYACAHgFpj8iA6AM1gFsBTRYY4gOxheIF5iAY0QAiAFIB7ABacRAGmLiYnZvMViYAa1VY57YjADmzfkMQAmABwLz5hQGZzu/QGcYIOPFPCArAAYAvwUANkCg4h9/AJwcYABiYgAxMBACZigqQhI6CQyjE0MoZkJ04gIpZWJzH2A6FLSi5AB9ahIKYjrU9JQshXziAD4qn1iEgEFkZAMuZgB3IQkQAFdGTmJZsHLiJdRqZim3DwQ8LLJKRiWiNJ6iBR295sPPUyeEYgAqYgBGGj8R4CAA=="
-decompose = lzstring::decompressFromBase64(compressed)
+decompose <- lzstring::decompressFromBase64(compressed)
 cat(decompose)
 #> 
 #> library(dplyr)
@@ -126,6 +150,8 @@ cat(decompose)
 #> # Add a new column with updated salary
 #> data <- mutate(data, updated_salary = salary * 1.05)
 ```
+
+------------------------------------------------------------------------
 
 ### Compress Shinylive Hashes
 
@@ -164,3 +190,60 @@ cat(y$content)
 #> def txt():
 #>     return f"n*2 is {input.n() * 2}"
 ```
+
+------------------------------------------------------------------------
+
+## Encoding and Limitations
+
+> **Important:**  
+> - lzstring operates on strings. For non-string or binary data, encode
+> as JSON or base64 first.  
+> - Always ensure your input is UTF-8 encoded.  
+> - If you compress an R object directly (without serialization), the
+> result may not decompress as expected.
+
+------------------------------------------------------------------------
+
+## Troubleshooting
+
+- **Why do I get an empty string after decompressing?**  
+  This may happen if the input was not properly encoded, or if the
+  compressed string is corrupted.
+
+- **Why does my decompressed JSON fail to parse?**  
+  Ensure you serialize your R object to JSON (or use `serializeJSON`)
+  before compressing.
+
+- **Can I compress binary data?**  
+  Encode it as base64 or hex first, then compress the resulting string.
+
+------------------------------------------------------------------------
+
+## Use Cases
+
+- Sharing Shiny app code via URL (see
+  [Shinylive](https://shinylive.io/r/app/))
+- Compact storage of large JSON blobs
+- Embedding compressed data in web apps
+- **Automatic Shinylive links in documentation:**  
+  The
+  [roxy.shinylive](https://github.com/insightsengineering/roxy.shinylive)
+  package uses lzstring to provide a
+  [roxygen2](https://roxygen2.r-lib.org/) extension that automatically
+  takes the code from the `@examples` tag and creates a URL to the
+  [shinylive.io](https://shinylive.io/r/app/) service. During
+  documentation build, a new section is added to the function manual
+  containing the link and an iframe to the application itself.
+
+------------------------------------------------------------------------
+
+## References
+
+- [lz-string JavaScript library
+  (pieroxy)](https://github.com/pieroxy/lz-string)
+- [lz-string C++ port (Andy
+  Kras)](https://github.com/andykras/lz-string-cpp)
+- [Shinylive for R](https://github.com/posit-dev/r-shinylive)
+- [roxy.shinylive](https://github.com/insightsengineering/roxy.shinylive)
+
+------------------------------------------------------------------------
