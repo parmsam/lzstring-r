@@ -195,12 +195,11 @@ cat(y$content)
 
 ## Encoding and Limitations
 
-> **Important:**  
-> - lzstring operates on strings. For non-string or binary data, encode
-> as JSON or base64 first.  
-> - Always ensure your input is UTF-8 encoded.  
-> - If you compress an R object directly (without serialization), the
-> result may not decompress as expected.
+- lzstring operates on strings. For non-string or binary data, encode as
+  JSON or base64 first.  
+- Always ensure your input is UTF-8 encoded.  
+- If you compress an R object directly (without serialization), the
+  result may not decompress as expected.
 
 ------------------------------------------------------------------------
 
