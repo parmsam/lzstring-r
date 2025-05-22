@@ -534,7 +534,7 @@ string compressToEncodedURIComponent(const string& input)
 {
   if (input.empty()) return {};
   using namespace __inner;
-  auto res = _compress(input, 6, [](int a) { return keyStrBase64.at(a); });
+  auto res = _compress(input, 6, [](int a) { return keyStrUriSafe.at(a); });
   return res;
 }
 
