@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# lzstring
+# lzstring <a href="https://parmsam.github.io/lzstring-r/"><img src="man/figures/logo.png" align="right" height="120" alt="lzstring website" /></a>
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/parmsam/lzstring-r/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/parmsam/lzstring-r/actions/workflows/R-CMD-check.yaml)
