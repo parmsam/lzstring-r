@@ -168,66 +168,6 @@
 <h3 id="decompress-shinylive-hashes">Decompress Shinylive Hashes<a class="anchor" aria-label="anchor" href="#decompress-shinylive-hashes"></a>
 </h3>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/decompressFromEncodedURIComponent.html">decompressFromEncodedURIComponent</a></span><span class="op">(</span><span class="st">"NobwRAdghgtgpmAXGKAHVA6ASmANGAYwHsIAXOMpMAGwEsAjAJykYE8AKAZwAtaJWAlAB0IdJiw71OY4RBEBiAAQAROADM+cRQFUAkorVFGitKkWluUUooAmzAO6cTi3p1JEA5sxiKAtP98RAFdaRQAeX0VUKA84AH1OWhs4ehZ2ERFFRSUAQXRzWlJqLQDAiCzSQuLFAF5FITAACThqaiJFAGVefgBCBtwM8uzOpJSWKKgIFoMjRT5UINInUszFROTU4zr1scZ0uSGspV0IBdJETrpk40NjCy0IIJh6OGMiNUV6PmWA1azpUaME5nfZZMFzU6LXQ2Wr1MBfCCcfp-MHUKAvaiwhoAOSeLzeHwRnEQyMOYJgfFhAEYBmSsjAoAAPWEAVgADLTwVkAG5QahBLR1ADMbJRsiyAlpqyUAHlFmcLo1aG5PN4-L8hqg2qQ5aQQUR5VCYXUGjZlaQAArahqyWQKFTqTRrV7c16KNoeWgERSMOAARxCvph7lsDmcrncXlg6v8Ik4LrdEQMQQgBEqJHY80WuEUBr1iwEihAgyOiiVKqjPne5m4Whl1BhADEoIVuGogpiAOJwVjx4zKKxQGNlUv2Vs+-0CtxwGGPZ5u6tE6WKAAqrkUcEZqF9nESJBrVkUsSmzHITiHEdV0eVinszHQM4hzgIfOoy5Dvog1ytRGsIb4ZovuQB7nNKy5Uhgii6NYN4NL6UBprQroNCYX41q86hGFoPAGg2nxaFAixEAylQvq0rDLmCvq+JucAEIsj72LW5RZksiiZpCpAACREoWBCWBAsTLgATJB0FOHmZzmKwqBaDeQ5ar+qySYsXFmm4P7WEmn7ftq7DFmSzJJmoLYWO21BcfYpl8B4KJEuEkTxn67AUhA7CMpKigMoy7mecUgkWBgeawqxPHfIoADUihUnaZIRqCXKMpyXJMHAUAANZOHURLJeCxCYiaYDyAA7CyOQ5MoABCpJcp8RjXFiYBMYUcA1YlaL0I1ADq1mCQU8DmO0UyMtYrxBKg6blBxXnfMIeAovSLblIV5aRmq1ZWYUNn9XASJgGKqwAL6yIdgxKAAwvBwFdHwrAmPkKyIt0rB5Kg7AhLCIQ5n2rpbM6jC-bIYCHQAukAA"</span><span class="op">)</span></span>
-<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://jeroen.r-universe.dev/jsonlite/reference/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">y</span><span class="op">$</span><span class="va">name</span><span class="op">)</span></span>
-<span><span class="co">#&gt; app.R</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">y</span><span class="op">$</span><span class="va">content</span><span class="op">)</span></span>
-<span><span class="co">#&gt; library(shiny)</span></span>
-<span><span class="co">#&gt; library(bslib)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; # Define UI for app that draws a histogram ----</span></span>
-<span><span class="co">#&gt; ui &lt;- page_sidebar(</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   # App title ----</span></span>
-<span><span class="co">#&gt;   title = "Hello Shiny!",</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   # Sidebar panel for inputs ----</span></span>
-<span><span class="co">#&gt;   sidebar = sidebar(</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     # Input: Slider for the number of bins ----</span></span>
-<span><span class="co">#&gt;     sliderInput(</span></span>
-<span><span class="co">#&gt;       inputId = "bins",</span></span>
-<span><span class="co">#&gt;       label = "Number of bins:",</span></span>
-<span><span class="co">#&gt;       min = 1,</span></span>
-<span><span class="co">#&gt;       max = 50,</span></span>
-<span><span class="co">#&gt;       value = 30</span></span>
-<span><span class="co">#&gt;     )</span></span>
-<span><span class="co">#&gt;   ),</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   # Output: Histogram ----</span></span>
-<span><span class="co">#&gt;   plotOutput(outputId = "distPlot")</span></span>
-<span><span class="co">#&gt; )</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; # Define server logic required to draw a histogram ----</span></span>
-<span><span class="co">#&gt; server &lt;- function(input, output) {</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   # Histogram of the Old Faithful Geyser Data ----</span></span>
-<span><span class="co">#&gt;   # with requested number of bins</span></span>
-<span><span class="co">#&gt;   # This expression that generates a histogram is wrapped in a call</span></span>
-<span><span class="co">#&gt;   # to renderPlot to indicate that:</span></span>
-<span><span class="co">#&gt;   #</span></span>
-<span><span class="co">#&gt;   # 1. It is "reactive" and therefore should be automatically</span></span>
-<span><span class="co">#&gt;   #    re-executed when inputs (input$bins) change</span></span>
-<span><span class="co">#&gt;   # 2. Its output type is a plot</span></span>
-<span><span class="co">#&gt;   output$distPlot &lt;- renderPlot({</span></span>
-<span><span class="co">#&gt;     x &lt;- faithful$waiting</span></span>
-<span><span class="co">#&gt;     bins &lt;- seq(min(x), max(x), length.out = input$bins + 1)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     hist(</span></span>
-<span><span class="co">#&gt;       x,</span></span>
-<span><span class="co">#&gt;       breaks = bins,</span></span>
-<span><span class="co">#&gt;       col = "#75AADB",</span></span>
-<span><span class="co">#&gt;       border = "white",</span></span>
-<span><span class="co">#&gt;       xlab = "Waiting time to next eruption (in mins)",</span></span>
-<span><span class="co">#&gt;       main = "Histogram of waiting times"</span></span>
-<span><span class="co">#&gt;     )</span></span>
-<span><span class="co">#&gt;   })</span></span>
-<span><span class="co">#&gt; }</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; # Create Shiny app ----</span></span>
-<span><span class="co">#&gt; shinyApp(ui = ui, server = server)</span></span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/decompressFromEncodedURIComponent.html">decompressFromEncodedURIComponent</a></span><span class="op">(</span><span class="st">"NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbDOAD1R04LFkw4xUxOmTERUAVzJ4mQiABM4dZfI4AdCPp0YuCsgH0WAGw4a6ACl2RHyxwDlnTAAzKAjJ+9MAEyeAJT64RAAAqq2GBR8ZPoaNExkCXYhiPpMOSpwZPJ0EEw0jhAAVIFioiAmihgQGUzlQQC+jvpgrQC6QA"</span><span class="op">)</span></span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://jeroen.r-universe.dev/jsonlite/reference/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">y</span><span class="op">$</span><span class="va">name</span><span class="op">)</span></span>
