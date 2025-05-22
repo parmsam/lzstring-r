@@ -249,3 +249,74 @@ A
 "
   compare_compress_decompress(x)
 })
+
+# Test cases for complex JSON ----
+
+test_that("compressToEncodedURIComponent round-trips complex JSON", {
+  stable_full <- list(
+    list(version = 1, class = "ellmer::Turn", props = list(
+      role = "user",
+      contents = list(list(version = 1, class = "ellmer::ContentText", props = list(text = "a"))),
+      tokens = c(0, 0)
+    )),
+    list(version = 1, class = "ellmer::Turn", props = list(
+      role = "assistant",
+      contents = list(list(version = 1, class = "ellmer::ContentText", props = list(
+        text = "There once was a lady by the river,\nWhose heart was full,\nWho spent her days looking up so,\nAnd day after day she grew.\n\nShe found delight in every turn of view,\nHer eyes wide open wide,\nSo that whenever time seemed long, dear friend,\nYou could trust she'd return."
+      ))),
+      tokens = c(23L, 63L)
+    )),
+    list(version = 1, class = "ellmer::Turn", props = list(
+      role = "user",
+      contents = list(list(version = 1, class = "ellmer::ContentText", props = list(text = "b"))),
+      tokens = c(0, 0)
+    )),
+    list(version = 1, class = "ellmer::Turn", props = list(
+      role = "assistant",
+      contents = list(list(version = 1, class = "ellmer::ContentText", props = list(
+        text = "In the land where love does run wild,\nThere was a lover who didn't care,\nWho believed he would find,\nAnd all the while he searched.\n\nHe spent his days looking for just one girl,\nHis thoughts were pure and clear,\nSo that every year he dreamed,\nOf her presence in the air."
+      ))),
+      tokens = c(96L, 63L)
+    ))
+  )
+  json <- jsonlite::serializeJSON(stable_full)
+  compressed <- lzstring::compressToEncodedURIComponent(json)
+  decompressed <- lzstring::decompressFromEncodedURIComponent(compressed)
+  result <- jsonlite::unserializeJSON(decompressed)
+  expect_equal(stable_full, result)
+})
+
+test_that("compressToEncodedURIComponent round trips intermediate JSON (to_empty_string)", {
+  stable <- list(
+    list(version = 1, class = "ellmer::Turn", props = list(
+      role = "user",
+      contents = list(list(version = 1, class = "ellmer::ContentText", props = list(text = "a"))),
+      tokens = c(0, 0)
+    )),
+    list(version = 1, class = "ellmer::Turn", props = list(
+      role = "assistant",
+      contents = list(list(version = 1, class = "ellmer::ContentText", props = "She found delight in every turn of view,Her eyes wide open wide,So that whenever time seemed long, dear friend,You could trust she'd return.")),
+      tokens = c(23L, 63L)
+    ))
+  )
+  json <- jsonlite::serializeJSON(stable)
+  compressed <- lzstring::compressToEncodedURIComponent(json)
+  decompressed <- lzstring::decompressFromEncodedURIComponent(compressed)
+  result <- jsonlite::unserializeJSON(decompressed)
+  expect_equal(stable, result)
+})
+
+test_that("compressToEncodedURIComponent round-trips simple JSON", {
+  stable <- list(
+    list(version = 1, class = "ellmer::Turn", props = list(
+      role = "user",
+      contents = list(list(version = 1, class = "ellmer::ContentText", props = list(text = "a"))),
+      tokens = c(0, 0)
+    ))
+  )
+  json <- jsonlite::serializeJSON(stable)
+  compressed <- lzstring::compressToEncodedURIComponent(json)
+  decompressed <- lzstring::decompressFromEncodedURIComponent(compressed)
+  result <- jsonlite::unserializeJSON(decompressed)
+  expect_equal(stable, result)
+})
