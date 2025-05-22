@@ -106,29 +106,9 @@
 <span><span class="co">#&gt; {"name":["John Doe"],"age":[30],"email":["john.doe@example.com"]}</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="js-code">JS code<a class="anchor" aria-label="anchor" href="#js-code"></a>
-</h3>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">js_code</span> <span class="op">&lt;-</span> <span class="st">"</span></span>
-<span><span class="st">function test() { </span></span>
-<span><span class="st">  console.log('Hello, World!'); </span></span>
-<span><span class="st">}</span></span>
-<span><span class="st">"</span></span>
-<span><span class="va">compressed</span> <span class="op">=</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/compressToBase64.html">compressToBase64</a></span><span class="op">(</span><span class="va">js_code</span><span class="op">)</span></span>
-<span><span class="va">compressed</span></span>
-<span><span class="co">#&gt; [1] "FAMwrgdgxgLglgewgAhgUwM4wBQEpkDeywyyUSGCANmgHRUIDm2A5ABJpUMA0yA6ggBOVACYBCFrgDcxAL7AgA=="</span></span>
-<span></span>
-<span><span class="va">decompressed</span> <span class="op">=</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/decompressFromBase64.html">decompressFromBase64</a></span><span class="op">(</span><span class="va">compressed</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">decompressed</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; function test() { </span></span>
-<span><span class="co">#&gt;   console.log('Hello, World!'); </span></span>
-<span><span class="co">#&gt; }</span></span></code></pre></div>
-</div>
-<div class="section level3">
 <h3 id="r-code">R code<a class="anchor" aria-label="anchor" href="#r-code"></a>
 </h3>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">r_code</span> <span class="op">&lt;-</span> <span class="st">'</span></span>
 <span><span class="st">library(dplyr)</span></span>
 <span><span class="st"></span></span>
@@ -163,6 +143,26 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; # Add a new column with updated salary</span></span>
 <span><span class="co">#&gt; data &lt;- mutate(data, updated_salary = salary * 1.05)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="compress-shinylive-hashes">Compress Shinylive Hashes<a class="anchor" aria-label="anchor" href="#compress-shinylive-hashes"></a>
+</h3>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">code</span> <span class="op">&lt;-</span> <span class="st">'library(shiny)</span></span>
+<span><span class="st">ui &lt;- fluidPage(</span></span>
+<span><span class="st">  "Hello, world!"</span></span>
+<span><span class="st">)</span></span>
+<span><span class="st">server &lt;- function(input, output, session) {</span></span>
+<span><span class="st">}</span></span>
+<span><span class="st">shinyApp(ui, server)'</span></span>
+<span><span class="va">files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://jeroen.r-universe.dev/jsonlite/reference/unbox.html" class="external-link">unbox</a></span><span class="op">(</span><span class="st">"app.R"</span><span class="op">)</span>,</span>
+<span>  content <span class="op">=</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://jeroen.r-universe.dev/jsonlite/reference/unbox.html" class="external-link">unbox</a></span><span class="op">(</span><span class="va">code</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">files_json</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://jeroen.r-universe.dev/jsonlite/reference/fromJSON.html" class="external-link">toJSON</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">files</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">files_lz</span> <span class="op">&lt;-</span> <span class="fu">lzstring</span><span class="fu">::</span><span class="fu"><a href="reference/compressToEncodedURIComponent.html">compressToEncodedURIComponent</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">files_json</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"https://shinylive.io/r/app/#code="</span>, <span class="va">files_lz</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; https://shinylive.io/r/app/#code=NobwRAdghgtgpmAXGKAHVA6ASmANGAYwHsIAXOMpMAGwEsAjAJykYE8AKAZwAtaJWAlAB0IAV1oACADwBaCQDNq4gCYAFKAHM47ERIlCwACTjVqRXBIDuRRtWUBCAyOEROcRgDd30ufNEQCUloSdj5UUVILIgjwyIk3Tk5giAEJEBEAXxEePlYAQXR2cQs3T3cBMAyAXSA</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="decompress-shinylive-hashes">Decompress Shinylive Hashes<a class="anchor" aria-label="anchor" href="#decompress-shinylive-hashes"></a>
