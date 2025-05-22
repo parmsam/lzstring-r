@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# lzstring
+# lzstring <a href="https://parmsam.github.io/lzstring-r/"><img src="man/figures/logo.png" align="right" height="120" alt="lzstring website" /></a>
 
 <!-- badges: start -->
 
