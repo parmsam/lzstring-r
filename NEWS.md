@@ -1,6 +1,7 @@
 # lzstring 0.2.0
 
 * Fixed a bug in `compressToEncodedURIComponent` that caused it to not work with complex JSON inputs - [#31](https://github.com/parmsam/lzstring-r/issues/31)
+* Enhanced `README.Rmd` with more better examples and instructions.
 
 # lzstring 0.1.3
 
