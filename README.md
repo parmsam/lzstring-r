@@ -16,11 +16,11 @@ downloads](https://cranlogs.r-pkg.org/badges/lzstring)](https://cran.r-project.o
 downloads](https://cranlogs.r-pkg.org/badges/grand-total/lzstring)](https://cran.r-project.org/package=lzstring)
 <!-- badges: end -->
 
-The goal of **lzstring-r** is to provide an R wrapper for the [lzstring
+The goal of **lzstring-r** is to provide an R wrapper for the [lz-string
 C++ library](https://github.com/andykras/lz-string-cpp).
-[lzstring](https://github.com/pieroxy/lz-string) is originally a
+[lz-string](https://github.com/pieroxy/lz-string) is originally a
 JavaScript library that provides string compression and decompression
-using a [LZ-based
+using an [LZ-based
 algorithm](https://en.wikipedia.org/wiki/Lempel–Ziv–Welch).
 
 Credit goes to [Winston Chang](https://github.com/wch) for spotting this
