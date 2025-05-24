@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 [![Total metacran downloads](https://cranlogs.r-pkg.org/badges/grand-total/lzstring)](https://cran.r-project.org/package=lzstring)
 <!-- badges: end -->
 
-The goal of **lzstring-r** is to provide an R wrapper for the [lzstring C++ library](https://github.com/andykras/lz-string-cpp). [lzstring](https://github.com/pieroxy/lz-string) is originally a JavaScript library that provides fast and efficient string compression and decompression using a [LZ-based algorithm](https://en.wikipedia.org/wiki/Lempel–Ziv–Welch).
+The goal of **lzstring-r** is to provide an R wrapper for the [lz-string C++ library](https://github.com/andykras/lz-string-cpp). [lz-string](https://github.com/pieroxy/lz-string) is originally a JavaScript library that provides string compression and decompression using an [LZ-based algorithm](https://en.wikipedia.org/wiki/Lempel–Ziv–Welch).
 
 Credit goes to [Winston Chang](https://github.com/wch) for spotting this missing R package and guiding me over at the R Shinylive repo—check out his awesome contributions which this repo is based on [here](https://github.com/posit-dev/r-shinylive/issues/70) and [here](https://github.com/posit-dev/r-shinylive/pull/71). Also, shoutout to Andy Kras for his implementation in C++ of lzstring, which you can find right [here](https://github.com/andykras/lz-string-cpp), and [pieroxy](https://github.com/pieroxy), the original brain behind lzstring in JavaScript—peek at his work over [here](https://github.com/pieroxy/lz-string). 
 
