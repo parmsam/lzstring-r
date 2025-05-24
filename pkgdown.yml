@@ -3,7 +3,7 @@ pkgdown: 2.1.2
 pkgdown_sha: ~
 articles:
   articles/performance: performance.html
-last_built: 2025-05-24T03:21Z
+last_built: 2025-05-24T03:24Z
 urls:
   reference: https://parmsam.github.io/lzstring-r/reference
   article: https://parmsam.github.io/lzstring-r/articles
